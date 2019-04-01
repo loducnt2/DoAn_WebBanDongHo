@@ -1,0 +1,17 @@
+
+ .cud_media{
+	margin-top: 20px;
+	display: flex;
+}
+.cud_media > div{
+	flex: 1;
+}
+.cud_media > div:nth-of-type(1){
+	flex: 0.1;
+}
+.cud_media-heading small{
+	padding-left: 10px;
+}
+.cud_media_body_header{
+	margin-bottom: 20px !important;
+} 
