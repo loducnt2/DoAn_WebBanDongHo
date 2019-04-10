@@ -1,13 +1,13 @@
 @extends('admin.layouts.index')
 
-@section('title') Danh sách nhân viên @endsection
+@section('title') Danh sách nhân viên giao hàng @endsection
 
 @section('content')
 	<div id="page-wrapper">
         <div class="row">
             <!--  page header -->
             <div class="col-lg-12">
-                <h1 class="page-header">Tables</h1>
+                <h1 class="page-header">Danh sách nhân viên giao hàng</h1>
             </div>
             <!-- end  page header -->
             @if(Session::has('success'))
@@ -22,9 +22,7 @@
             <div class="col-lg-12">
                 <!-- Advanced Tables -->
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Danh sách nhân viên
-                    </div>
+                    <div class="panel-heading"></div>
                     <div class="col-lg-12">
                         @if(session('notifyDelete'))
                             <div class="alert alert-success">

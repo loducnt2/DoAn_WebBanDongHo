@@ -4,8 +4,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col d-flex flex-row">
-				<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/phone.png" alt=""></div>{{ $itemCompany->phone_company }}</div>
-				<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/mail.png" alt=""></div><a href="#">{{ $itemCompany->email_company }}</a></div>
+				<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ url('images/phone.png') }}" alt=""></div>{{ $itemCompany->phone_company }}</div>
+				<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ url('images/mail.png') }}" alt=""></div>{{ $itemCompany->email_company }}</div>
 				<div class="top_bar_content ml-auto">
 					<div class="top_bar_menu">
 						<!-- <ul class="standard_dropdown top_bar_dropdown">
@@ -91,7 +91,7 @@
 										</ul>
 									</div>
 								</div>
-								<button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
+								<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{{ url('images/search.png') }}" alt=""></button>
 							</form>
 						</div>
 					</div>
@@ -113,7 +113,7 @@
 					<div class="cart">
 						<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 							<div class="cart_icon">
-								<img src="images/cart.png" alt="">
+								<img src="{{ url('images/cart.png') }}" alt="">
 								<div class="cart_count"><span>
 	                                {{ count(Cart::content()) }}
 								</span></div>

@@ -20,17 +20,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-				<div class="single_post_title">{{ $postSingle->title }}</div>
+				<div class="single_post_title" style="font-family: arial; font-weight: bold;">{{ $postSingle->title }}</div>
 				<div class="single_post_text">
-					<p>{!! $postSingle->contents !!}</p>
-
-					<!-- <div class="single_post_quote text-center">
-						<div class="quote_image"><img src="images/quote.png" alt=""></div>
-						<div class="quote_text">Quisque sagittis non ex eget vestibulum. Sed nec ultrices dui. Cras et sagittis erat. Maecenas pulvinar, turpis in dictum tincidunt, dolor nibh lacinia lacus.</div>
-						<div class="quote_name">Liam Neeson</div>
-					</div>
-					
-					<p>Praesent ac magna sed massa euismod congue vitae vitae risus. Nulla lorem augue, mollis non est et, eleifend elementum ante. Nunc id pharetra magna.  Praesent vel orci ornare, blandit mi sed, aliquet nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p> -->
+					<p style="font-family: arial; font-weight: bold;">{!! $postSingle->contents !!}</p>
 				</div>
 			</div>
 		</div>
@@ -51,7 +43,7 @@
 						<div style="display: flex; justify-content: center; align-items: center;">
 							<img src='{{ url("upload/post/$item->thumbnail") }}'  width="50%" height="200px" > 
 						</div>
-						<div class="blog_text">{{ $item->title }}</div>
+						<div class="blog_text" style="font-family: arial; font-weight: bold;">{{ $item->title }}</div>
 						<div class="blog_button"><a href='{{ url("post/$item->id/$item->unsign_title.html") }}'>Chi tiết</a></div>
 					</div>
 					@endforeach

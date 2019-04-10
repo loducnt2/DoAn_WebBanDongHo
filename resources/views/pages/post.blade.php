@@ -15,7 +15,7 @@
 	<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 	<div class="home_overlay"></div>
 	<div class="home_content d-flex flex-column align-items-center justify-content-center">
-		<h2 class="home_title">Bài viết liên quan</h2>
+		<h2 class="home_title" style="font-family: arial; font-weight: bold;">Bài viết liên quan</h2>
 	</div>
 </div>
 
@@ -33,7 +33,7 @@
 						<div style="display: flex; justify-content: center; align-items: center;">
 							<img src='{{ url("upload/post/$item->thumbnail") }}'  width="50%" height="200px" > 
 						</div>
-						<div class="blog_text">{{ $item->title }}</div>
+						<div class="blog_text" style="font-family: arial; font-weight: bold;">{{ $item->title }}</div>
 						<div class="blog_button"><a href='{{ url("post/$item->id/$item->unsign_title.html") }}'>Chi tiết</a></div>
 					</div>
 				@endforeach

@@ -58,24 +58,25 @@
                             <fieldset>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail..." name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail..." name="email" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Mật khẩu..." name="password" type="password" value="">
                                 </div>
-                                <!-- <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Nhớ tài khoản
-                                    </label>
-                                </div> -->
+
                                 <div class="form-group">
-                                    <a href="{{ url('reset-password') }}">Quên mậu khẩu</a>
+                                    <a href="{{ url('reset-password') }}">Quên mật khẩu</a>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Đăng nhập</a> -->
                                 <button type="submit" class="btn btn-lg btn-success btn-block">Đăng nhập</button>
+                                
                             </fieldset>
                         </form>
+                        <div class="form-group" style="margin-top: 30px;">
+                                    <p>Nếu bạn chưa có tài khoản:</p>
+                                    <a href="{{ url('register') }}" style="text-decoration: none;">
+                                        <button style="width: 50%; margin: auto;" class="btn btn-lg btn-info btn-block">Đăng ký</button>
+                                    </a>
+                                </div>
                     </div>
                 </div>
             </div>

@@ -1,30 +1,29 @@
 @extends('admin.layouts.index')
 
-@section('title') Danh sách loại tài khoản @endsection
+@section('title') Danh sách loại sản phẩm @endsection
 
 @section('content')
 	<div id="page-wrapper">
         <div class="row">
             <!--  page header -->
             <div class="col-lg-12">
-                <h1 class="page-header">Tables</h1>
+                <h1 class="page-header">Danh sách loại sản phẩm</h1>
             </div>
             <!-- end  page header -->
-            @if(Session::has('success'))
+            @if(session('success'))
                 <div class="col-lg-12">
-                    <h1 class="page-header" style="background-color: #09a80f; color: white">
-                        {{ Session::get('success') }}
-                    </h1>
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
                 </div>
             @endif
+
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <!-- Advanced Tables -->
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Danh sách danh mục
-                    </div>
+                    <div class="panel-heading"></div>
                     <div class="col-lg-12">
                         @if(session('notifyDelete'))
                             <div class="alert alert-success">

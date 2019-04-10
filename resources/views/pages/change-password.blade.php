@@ -57,7 +57,7 @@
                             <fieldset>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
-                                    <label>Mật khẩu (*)</label>
+                                    <label>Nhập mật khẩu mới (*)</label>
                                     <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
                                 </div>
                                 <div class="form-group">

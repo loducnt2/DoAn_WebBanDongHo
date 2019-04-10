@@ -150,14 +150,9 @@ class PagesController extends Controller
             Session::flash('error', 'Không có sản phẩm nào trong giỏ hàng - Không thể đặt hàng!!!');
             return redirect()->back();
         }
-
-        /*$this->validate($request, [
-            'delivery_phone' => 'required',
-            'delivery_address' => 'required',
-            'phone' => 'required|regex:/(0)[0-9]{9,10}/',
-            'address' => 'required',
-            'note' => 'required'
-        ]);*/
+        if (!Auth::check()) {
+            return redirect('cart/checkout')->with('error', 'Vui lòng đăng nhập để tiến hành đặt hàng !');
+        }
 
         $validatedData = $request->validate([
             'delivery_phone' => 'required|regex:/^(0)[0-9]{9}$/',
@@ -215,31 +210,32 @@ class PagesController extends Controller
 
         //xoa gio hang
         Cart::destroy();
-
-        return redirect('home')->with('success', 'Bạn đã đặt hàng thành công!!!');
+        $id_cus = Auth::user()->id;
+        //return redirect('home')->with('success', 'Bạn đã đặt hàng thành công!!!');
+        return redirect('cart/order/'.$id_cus)->with('success', 'Bạn đã đặt hàng thành công!!!');
     }
 
     public function getOrder($id){
-
         if(Auth::check()) {
             $id = Auth::user()->id;
             //$detail = Order::find($id)->orderdetail()->get();
 
             //$orders = Order::find($id);
 
-            $detail = Orderdetail::select('orderdetails.id', 'orderdetails.idOrder', 'orderdetails.idProduct', 'orderdetails.quantity', 'orderdetails.created_at', 'orderdetails.updated_at')
+            $detail = Orderdetail::select('orderdetails.id', 'orderdetails.idOrder', 'orderdetails.idProduct', 'orderdetails.quantity', 'orderdetails.price', 'orderdetails.discount', 'orderdetails.created_at', 'orderdetails.updated_at')
             ->join('orders', 'orders.id', '=', 'orderdetails.idOrder')
             ->where('orders.idUser', $id)
             ->where('orders.status_order', '<>', 0)
             ->where('orders.status_order', '<>', 3)
             ->get();
 
-            $orders = Order::select('orders.id', 'orders.idUser', 'orders.delivery_phone', 'orders.delivery_address', 'orders.note_order', 'orders.status_order','orders.created_at', 'orders.updated_at', 'users.name')
+            $orders = Order::select('orders.id', 'orders.idUser', 'orders.delivery_phone', 'orders.delivery_address', 'orders.note_order', 'orders.total', 'orders.status_order','orders.created_at', 'orders.updated_at', 'users.name')
             ->join('users', 'users.id', '=', 'orders.idUser')
             ->where('orders.idUser', $id)
             ->where('orders.status_order', '<>', 0)
             ->where('orders.status_order', '<>', 3)
             ->get();
+
 
        /* echo "<pre>";
         print_r($orders->toArray());
@@ -255,9 +251,9 @@ class PagesController extends Controller
         
     }
     public function postOrder($id){
-         $id = Auth::user()->id;
+        $id = Auth::user()->id;
 
-        $order = DB::update('update orders set status_order = 3 where orders.idUser = ' .$id);
+        $order = DB::update('update orders set status_order = 3 where orders.status_order = 1 OR orders.status_order = 2 AND orders.idUser = '.$id);
 
         return redirect('home')->with('notifyDeleteOrder', 'Bạn đã hủy đơn hàng thành công!');
     }
@@ -456,6 +452,9 @@ class PagesController extends Controller
 
         if (Auth::attempt(['email'=>$request->email, 'password'=>$request->password, 'confirmed'=>1])) {
             return redirect('home');
+        }
+        if (Auth::attempt(['name'=>$request->email, 'password'=>$request->password, 'confirmed'=>1])) {
+            return redirect('home');
         }else{
             return redirect('login')->with('notify', 'Sai tài khoản hoặc mật khẩu, hoặc bạn chưa xác nhận email!');
         }
@@ -472,17 +471,16 @@ class PagesController extends Controller
     }
     public function postRegister(Request $request){
         $validatedData = $request->validate([
-            'name' => 'required|min:2|max:255',
+            'name' => 'required|min:2|unique:users',
             'email' => 'required|unique:users',
             'password' => 'required|min:6',
             'passwordAgain' => 'required|same:password',
-            'phone' => 'required|regex:/^(0)[0-9]{9}$/',
-            'address' => 'required|min:2'
+            'phone' => 'required|regex:/^(0)[0-9]{9}$/'
         ], 
             [
                 'name.required'=>'Tên đămg nhập bắt buộc phải nhập !!!',
                 'name.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
-                'name.max'=>'Tên từ 2 - 100 ký tự nhé !!!',
+                'name.unique'=>'Tên này đã có người sử dụng, mời bạn chọn tên mới!',
                 
                 'email.required'=>'Bạn chưa nhập email !!!',
                 'email.unique'=>'Email này đã tồn tại !!!',
@@ -494,46 +492,18 @@ class PagesController extends Controller
                 'passwordAgain.same'=>'Mật khẩu xác nhận chưa đúng !!!',
 
                 'phone.required'=>'Bạn chưa nhập số điện thoại !!!',
-                'phone.regex'=>'SĐT không đúng định dạng !!!',
-
-                'address.required'=>'Bạn chưa nhập địa chỉ !!!',
-                'address.min'=>'Địa chỉ từ 2 ký tự trở lên !!!'
+                'phone.regex'=>'SĐT không đúng định dạng !!!'
             ]
         );
 
         $user = new User();
         $user->id = $request->id;
         $user->name = $request->name;
-        if($request->hasFile("avatar")){
-            $fileAnh = $request->File("avatar");
-
-            $duoi = $fileAnh->getClientOriginalExtension();
-            if($duoi != 'jpg' && $duoi != 'JPG' && $duoi != 'png' && $duoi != 'PNG' && $duoi != 'jpeg' && $duoi != 'JPEG'){
-                return redirect('admin/user/create')->with('loi', 'Ảnh không hợp lệ');
-            }
-
-            $name = $fileAnh->getClientOriginalName();
-            $newName = str_random(5)."_".$name;
-            while(file_exists("upload/user".$newName)){
-                $newName = str_random(5)."_".$name;
-            }
-            $fileAnh->move("upload/user", $newName);
-            $user->avatar = $newName;
-
-            /*echo "$avatar";*/
-        }else{
-            $user->avatar = "no-image.png";
-        }
-
+        $user->avatar = "no-image.png";
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->last_name = $request->last_name;
-        $user->first_name = $request->first_name;
         $user->phone = $request->phone;
-        $user->address = $request->address;
         $user->idTypeUser = "3";
-        $user->gender = $request->gender;
-    
         
         $code = time().uniqid(true);
         $confirmation_code = ['conf' => $code];
@@ -603,12 +573,9 @@ class PagesController extends Controller
 
         if ($user->count() > 0) {
             $token_code = $code;
-            $notification_status = 'Bạn có thể đăng nhập bằng mật khẩu mới';
-            return view('pages.change-password', compact('token_code'))->with('notify', $notification_status);
+            return view('pages.change-password', compact('token_code'));
         } else {
-            $notification_status ='Mã xác nhận không chính xác';
-            $token_code = 0;
-            return view('pages.change-password', compact('token_code'))->with('notify', $notification_status);
+            return redirect('reset-password')->with('resetPass', 'Mã xác nhận không chính xác');
         }
         
     }
@@ -628,10 +595,10 @@ class PagesController extends Controller
 
         $user = User::where('token', $code);
         if ($user->count() > 0) {
-            $code = time().uniqid(true);
+            $new_code = time().uniqid(true);
             $user->update([
                 'password' => bcrypt($request->password),
-                'token' => $code
+                'token' => $new_code
             ]);
             $notification_status = 'Bạn có thể đăng nhập bằng mật khẩu mới';
         } else {
@@ -646,7 +613,7 @@ class PagesController extends Controller
     }
     public function postClient(Request $request){
         $validatedData = $request->validate([
-            'name' => 'required|min:2|max:255',
+            'name' => 'required|min:2|unique:users',
             'phone' => 'required|regex:/^(0)[0-9]{9}$/',
             'address' => 'required|min:2',
             'avatar' => 'unique:users',
@@ -654,7 +621,7 @@ class PagesController extends Controller
             [
                 'name.required'=>'Tên đămg nhập bắt buộc phải nhập !!!',
                 'name.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
-                'name.max'=>'Tên từ 2 - 100 ký tự nhé !!!',
+                'name.unique'=>'Tên này đã có người sử dụng, mời bạn chọn tên mới!',
 
                 'phone.required'=>'Bạn chưa nhập số điện thoại !!!',
                 'phone.regex'=>'SĐT không đúng định dạng !!!',

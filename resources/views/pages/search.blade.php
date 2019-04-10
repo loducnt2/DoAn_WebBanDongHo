@@ -17,7 +17,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">Danh sách sản phẩm</h2>
+			<h2 class="home_title" style="font-family: arial; font-weight: bold;">Danh sách sản phẩm</h2>
 		</div>
 	</div>
 
@@ -47,7 +47,7 @@
 			                @endforeach
 							</ul>
 						</div>
-						<div class="sidebar_section filter_by_section">
+						<!-- <div class="sidebar_section filter_by_section">
 							<div class="sidebar_title">Filter By</div>
 							<div class="sidebar_subtitle">Price</div>
 							<div class="filter_price">
@@ -79,7 +79,7 @@
 								<li class="brand"><a href="#">Sony</a></li>
 								<li class="brand"><a href="#">Xiaomi</a></li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 
 					
@@ -90,11 +90,16 @@
 					
 					<!-- Shop Content -->
 					
-
+	
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span>186 </span> {{ $keyword }}</div>
-							<div class="shop_sorting">
+						<?php $dem=0 ?>
+						@foreach($pro_search as $item)
+							<?php $dem++; ?>
+						@endforeach
+							<div class="shop_product_count"><span><?php echo $dem; ?> </span>&nbsp; {{ $keyword }}</div>
+						
+							<!-- <div class="shop_sorting">
 								<span>Sort by:</span>
 								<ul>
 									<li>
@@ -106,7 +111,7 @@
 										</ul>
 									</li>
 								</ul>
-							</div>
+							</div> -->
 						</div>
 					
 
@@ -115,7 +120,7 @@
 							<div class="product_grid_border"></div>
 
 							<!-- Product Item -->
-
+						
 						@foreach($pro_search as $item)
 							<!-- Product Item -->
 							<div class="product_item discount">
@@ -133,7 +138,7 @@
                                         $totalAmount += ($item->price_pro*$Newdiscount);
                                     ?>
 										{{ number_format($totalAmount) }} VNĐ
-										<span>{{ number_format($item->price_pro) }} VNĐ</span>
+										<span style="text-decoration: line-through;">{{ number_format($item->price_pro) }} VNĐ</span>
 									</div>
 									<div class="product_name">
 										<div><a href='{{ url("product/$item->id") }}' tabindex="0">{{ $item->name_pro }}</a></div>
@@ -146,7 +151,6 @@
 								</ul>
 							</div>
 						@endforeach
-					
 						</div>
 
 						<!-- Shop Page Navigation -->
@@ -188,7 +192,7 @@
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
 									<div class="viewed_image">
 										<a href='{{ url("product/$item->id") }}'>
-											<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="width: 100px; height: 100px;" alt="">
+											<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="width: 100px; height: 130px;" alt="">
 										</a>
 									</div>
 									<?php 

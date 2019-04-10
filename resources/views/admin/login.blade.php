@@ -67,7 +67,7 @@ use Illuminate\Support\Facades\Auth;
                             <fieldset>
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail..." name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail..." name="email" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Mật khẩu..." name="password" type="password" value="">

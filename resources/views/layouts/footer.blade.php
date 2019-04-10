@@ -6,7 +6,7 @@
 			<div class="col">
 				<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
 					<div class="newsletter_title_container">
-						<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
+						<div class="newsletter_icon"><img src="{{ url('images/send.png') }}" alt=""></div>
 						<div class="newsletter_title">Đăng ký nhận bản tin từ CudLo</div>
 						<div class="newsletter_text"><p>Đừng bỏ lỡ hàng ngàn sản phẩm và chương trình siêu hấp dẫn</p></div>
 					</div>
@@ -35,7 +35,7 @@
 					<div class="logo_container">
 						<div class="logo"><a href="#">{{ $itemCompany->name_company }}</a></div>
 					</div>
-					<div class="footer_title">Got Question? Call Us 24/7</div>
+					<div class="footer_title" style="font-family: arial; font-weight: bold;">Có câu hỏi? Gọi cho chúng tôi 24/7</div>
 					<div class="footer_phone">{{ $itemCompany->phone_company }}</div>
 					<div class="footer_contact_text">
 						<p>{{ $itemCompany->address_company }}</p>
@@ -103,10 +103,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 					<div class="logos ml-sm-auto">
 						<ul class="logos_list">
-							<li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
-							<li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
-							<li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
-							<li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
+							<li><a href="#"><img src="{{ url('images/logos_1.png') }}" alt=""></a></li>
+							<li><a href="#"><img src="{{ url('images/logos_2.png') }}" alt=""></a></li>
+							<li><a href="#"><img src="{{ url('images/logos_3.png') }}" alt=""></a></li>
+							<li><a href="#"><img src="{{ url('images/logos_4.png') }}" alt=""></a></li>
 						</ul>
 					</div>
 				</div>

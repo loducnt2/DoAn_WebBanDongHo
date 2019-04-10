@@ -10,13 +10,13 @@
 	<div class="banner_background" style="background-image:url('images/banner_background.jpg')"></div>
 	<div class="container fill_height">
 		<div class="row fill_height">
-			<div class="banner_product_image"><img src="images/images.png" alt=""></div>
+			<div class="banner_product_image"><img src="images/imageHome.png" style="width: 31%; float: right;" alt="watch_banner"></div>
 			<div class="col-lg-5 offset-lg-4 fill_height">
 				<div class="banner_content">
-					<h1 class="banner_text"></h1>
+					<h1 class="banner_text">Kỷ nguyên mới của đồng hồ</h1>
 					<div class="banner_price"></div>
 					<div class="banner_product_name"></div>
-					<div class="button banner_button"></div>
+					<div class="button banner_button"><a href="{{ url('shop/1') }}">Mua sắm ngay</a></div>
 				</div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@
 								<div class="deals_content">
 									<div class="deals_info_line d-flex flex-row justify-content-start">
 										<div class="deals_item_category"><a href="#">{{ $item->trade->name_trade }}</a></div>
-										<div class="deals_item_price_a ml-auto">{{ $item->price_pro }}</div>
+										<div class="deals_item_price_a ml-auto" style="text-decoration: line-through;">{{ $item->price_pro }}</div>
 									</div>
 									<div class="deals_info_line d-flex flex-row justify-content-start">
 										<div class="deals_item_name">
@@ -87,7 +87,7 @@
                                             $Newdiscount_NB = (100-$item->discount_pro)/100;
                                             $totalAmount_NoiBat += ($item->price_pro*$Newdiscount_NB);
                                         ?>
-										<div class="deals_item_price ml-auto">{{ number_format($totalAmount_NoiBat) }} VNĐ</div>
+										<div class="deals_item_price ml-auto">{{ number_format($totalAmount_NoiBat) }}</div>
 									</div>
 									
 								</div>
@@ -138,7 +138,7 @@
                                                 $totalAmount += ($item->price_pro*$Newdiscount);
                                             ?>
 												{{ number_format($totalAmount) }} VNĐ
-												<span>{{ number_format($item->price_pro) }} VNĐ</span>
+												<span style="text-decoration: line-through;">{{ number_format($item->price_pro) }} VNĐ</span>
 											</div>
 											<div class="product_name">
 												<div>
@@ -194,7 +194,7 @@
                                                 $totalAmount += ($item->price_pro*$Newdiscount);
                                             ?>
 												{{ number_format($totalAmount) }} VNĐ
-												<span>{{ number_format($item->price_pro) }} VNĐ</span>
+												<span style="text-decoration: line-through;">{{ number_format($item->price_pro) }} VNĐ</span>
 											</div>
 											<div class="product_name"><div><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div></div>
 
@@ -245,7 +245,7 @@
 	                                                $totalAmount += ($item->price_pro*$Newdiscount);
 	                                            ?>
 												{{ number_format($totalAmount) }} VNĐ
-												<span>{{ number_format($item->price_pro) }} VNĐ</span>
+												<span style="text-decoration: line-through;">{{ number_format($item->price_pro) }} VNĐ</span>
 											</div>
 											<div class="product_name"><div><a href="{{ url('product/'. $item->id ) }}">{{ $item->name_pro }}</a></div></div>
 											<div class="product_extras">
@@ -408,6 +408,7 @@
 							<li class="active">Epos Swiss</li>
 							<li>Atlantic Atlantic Swiss</li>
 							<li>Diamond D </li>
+							<li> TEST </li>
 						</ul>
 						<div class="tabs_line"><span></span></div>
 					</div>
@@ -424,7 +425,7 @@
 										<div class="border_active"></div>
 										<div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
 											<div class="product_image d-flex flex-column align-items-center justify-content-center">
-												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 100px; width: 30%;" alt="">
+												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 110px; width: 30%;" alt="">
 											</div>
 											<div class="product_content">
 									<?php 
@@ -468,7 +469,7 @@
 										<div class="border_active"></div>
 										<div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
 											<div class="product_image d-flex flex-column align-items-center justify-content-center">
-												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 100px; width: 30%;" alt="">
+												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 110px; width: 30%;" alt="">
 											</div>
 											<div class="product_content">
 									<?php 
@@ -515,7 +516,7 @@
 										<div class="border_active"></div>
 										<div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
 											<div class="product_image d-flex flex-column align-items-center justify-content-center">
-												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 100px; width: 30%;" alt="">
+												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 110px; width: 30%;" alt="">
 											</div>
 											<div class="product_content">
 									<?php 
@@ -547,6 +548,50 @@
 									</div>
 								@endforeach
 
+									
+								</div>
+								<div class="arrivals_slider_dots_cover"></div>
+							</div>
+
+							<!-- Product Panel -->
+							<div class="product_panel panel active">
+								<div class="arrivals_slider slider">
+
+									<!-- Slider Item -->
+								@foreach($trade_1 as $item)
+									<div class="arrivals_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+											<div class="product_image d-flex flex-column align-items-center justify-content-center">
+												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 110px; width: 30%;" alt="">
+											</div>
+											<div class="product_content">
+									<?php 
+		                                $totalAmount = 0; 
+		                                $Newdiscount = (100-$item->discount_pro)/100;
+		                                $totalAmount += ($item->price_pro*$Newdiscount);
+		                            ?>
+												<div class="product_price">{{ number_format($totalAmount) }} VNĐ</div>
+												<div class="product_name"><div><a href="product.html">{{ $item->name_pro }}</a></div></div>
+												<div class="product_extras">
+													<div class="product_color">
+														<input type="radio" checked name="product_color" style="background:#b19c83">
+														<input type="radio" name="product_color" style="background:#000000">
+														<input type="radio" name="product_color" style="background:#999999">
+													</div>
+													<button class="product_cart_button">
+														<a href='{{ url("product/$item->id") }}' style="color: white;">Chi tiết</a>
+													</button>
+												</div>
+											</div>
+											<!-- <div class="product_fav"><i class="fas fa-heart"></i></div> -->
+											<ul class="product_marks">
+												<li class="product_mark product_discount"></li>
+												<li class="product_mark product_new">-{{ $item->discount_pro }}%</li>
+											</ul>
+										</div>
+									</div>
+								@endforeach
 									
 								</div>
 								<div class="arrivals_slider_dots_cover"></div>
@@ -736,26 +781,26 @@
 
 <!-- Adverts -->
 
-<div class="adverts">
+<!-- <div class="adverts">
 	<div class="container">
 		<div class="row">
 
 			<div class="col-lg-4 advert_col">
 				
-				<!-- Advert Item -->
+				Advert Item
 
 				<div class="advert d-flex flex-row align-items-center justify-content-start">
 					<div class="advert_content">
 						<div class="advert_title"><a href="#">HOT Trends</a></div>
-						<div class="advert_text">Các sản phẩm cu hướng hiện tại</div>
+						<div class="advert_text">Các sản phẩm xu hướng hiện tại</div>
 					</div>
-					<div class="ml-auto"><div class="advert_image"><img src="images/adv_1.png" alt=""></div></div>
+					<div class="ml-auto"><div class="advert_image"><img src="{{ url('images/adv_1.png') }}" alt=""></div></div>
 				</div>
 			</div>
 
 			<div class="col-lg-4 advert_col">
 				
-				<!-- Advert Item -->
+				Advert Item
 
 				<div class="advert d-flex flex-row align-items-center justify-content-start">
 					<div class="advert_content">
@@ -763,26 +808,26 @@
 						<div class="advert_title_2"><a href="#">Sale -45%</a></div>
 						<div class="advert_text">Lorem ipsum dolor sit amet, consectetur.</div>
 					</div>
-					<div class="ml-auto"><div class="advert_image"><img src="images/adv_2.png" alt=""></div></div>
+					<div class="ml-auto"><div class="advert_image"><img src="{{ url('images/adv_2.png') }}" alt=""></div></div>
 				</div>
 			</div>
 
 			<div class="col-lg-4 advert_col">
 				
-				<!-- Advert Item -->
+				Advert Item
 
 				<div class="advert d-flex flex-row align-items-center justify-content-start">
 					<div class="advert_content">
 						<div class="advert_title"><a href="#">Trends 2018</a></div>
 						<div class="advert_text">Lorem ipsum dolor sit amet, consectetur.</div>
 					</div>
-					<div class="ml-auto"><div class="advert_image"><img src="images/adv_3.png" alt=""></div></div>
+					<div class="ml-auto"><div class="advert_image"><img src="{{ url('images/adv_3.png') }}" alt=""></div></div>
 				</div>
 			</div>
 
 		</div>
 	</div>
-</div>
+</div> -->
 
 <!-- Trends -->
 
@@ -796,7 +841,7 @@
 			<div class="col-lg-3">
 				<div class="trends_container">
 					<h2 class="trends_title">HOT Trends</h2>
-					<div class="trends_text"><p>Các sản phẩm cu hướng hiện tại</p></div>
+					<div class="trends_text"><p>Các sản phẩm xu hướng hiện tại</p></div>
 					<div class="trends_slider_nav">
 						<div class="trends_prev trends_nav"><i class="fas fa-angle-left ml-auto"></i></div>
 						<div class="trends_next trends_nav"><i class="fas fa-angle-right ml-auto"></i></div>
@@ -832,7 +877,7 @@
 									<li class="trends_mark trends_discount">-25%</li>
 									<li class="trends_mark trends_new">new</li>
 								</ul>
-								<div class="trends_fav"><i class="fas fa-heart"></i></div>
+								
 							</div>
 						</div>
 					@endforeach

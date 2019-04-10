@@ -1,6 +1,6 @@
 @extends('admin.layouts.index')
 
-@section('title') Thêm mới danh mục @endsection
+@section('title') Gửi tin tức @endsection
 
 @section('content')
 <div id="page-wrapper">
@@ -15,10 +15,9 @@
         <div class="col-lg-12">
             <!-- Form Elements -->
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <p style="color: red;">Thêm mới danh mục</p>
+                <div class="panel-heading"> Gửi tin tức đến người đăng ký
                     <p>
-                        <a href="{{ url('admin/category/list') }}">Danh sách danh mục</a>
+                        <a href="{{ url('admin/newsletter/list') }}">Danh sách người đăng ký</a>
                     </p>
                 </div>
 
@@ -32,23 +31,22 @@
                     </div>
                 @endif
 
-                @if(session('notify'))
-                    <div class="alert alert-success">
-                        {{ session('notify') }}
-                    </div>
-                @endif
-
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <form action="{{ url('admin/category/create') }}" method="POST">
+                            <form action="{{ url('admin/newsletter/send-mail') }}" method="POST">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group">
-                                    <label>Tên danh mục</label>
-                                    <input class="form-control" name="name_cate" placeholder="Loại tài khoản">
+                                    <label>Nội dung tin</label>
+                                    <textarea class="form-control ckeditor" id="demo"  rows="3" name="contents_mail"></textarea>
+                                    <script type="text/javascript">
+                                        CKEDITOR.replace("demo");
+                                    </script>
                                 </div>
+                                <input type="hidden" name="name_con" value="">
+                                <input type="hidden" name="email_con" value="">
 
-                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                <button type="submit" class="btn btn-primary">Gửi</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                         </div>

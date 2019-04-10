@@ -10,13 +10,14 @@
                 <h1 class="page-header">Danh sách người đăng ký</h1>
             </div>
             <!-- end  page header -->
-            @if(Session::has('success'))
+            @if(session('success'))
                 <div class="col-lg-12">
-                    <h1 class="page-header" style="background-color: #09a80f; color: white">
-                        {{ Session::get('success') }}
-                    </h1>
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
                 </div>
             @endif
+
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -37,7 +38,7 @@
                         <div class="table-responsive">
                             <div class="row">
                                 <div class="col-sm-8">
-                                    
+                                    <a href="{{ url('admin/newsletter/send-mail') }}">Gửi tin tức đến người đăng ký</a>
                                 </div>
                                 <div class="col-sm-4 search-admin">
                                     <div id="dataTables-example_filter" class="dataTables_filter">

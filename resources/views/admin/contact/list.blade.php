@@ -7,7 +7,7 @@
         <div class="row">
             <!--  page header -->
             <div class="col-lg-12">
-                <h1 class="page-header">Tables</h1>
+                <h1 class="page-header">Danh sách liên hệ</h1>
             </div>
             <!-- end  page header -->
             @if(Session::has('success'))
@@ -28,9 +28,7 @@
             <div class="col-lg-12">
                 <!-- Advanced Tables -->
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Danh sách các liên hệ
-                    </div>
+                    <div class="panel-heading"></div>
                     <div class="col-lg-12">
                         @if(session('notifyDelete'))
                             <div class="alert alert-success">

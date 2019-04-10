@@ -19,7 +19,7 @@
 				<div class="single_post_title">Giới thiệu về Cudlo</div>
 				<div class="single_post_text">
 					@foreach($company as $item)
-						<p>{!! $item->introduce !!}</p>
+						<p style="font-family: arial; font-weight: bold;">{!! $item->introduce !!}</p>
 					@endforeach
 				</div>
 			</div>

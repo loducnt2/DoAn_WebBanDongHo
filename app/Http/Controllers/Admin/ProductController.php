@@ -89,20 +89,28 @@ class ProductController extends Controller
     public function postEdit(Request $request, $id){
     	$validatedData = $request->validate([
             'name_pro' => 'required|min:2',
-            'price_pro' => 'required',
-            'quantity_pro' => 'required',
-            'discount_pro' => 'required'
+            'price_pro' => 'required|min:1|integer',
+            'quantity_pro' => 'required|min:0|integer',
+            'discount_pro' => 'required|min:0|integer'
         ], 
             [
                 'name_pro.required'=>'Tên sản phẩm bắt buộc phải nhập !!!',
                 'name_pro.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
                 
                 'price_pro.required'=>'Bạn chưa nhập giá !!!',
+                'price_pro.min'=>'Giá phải lớn hơn 0 !!!',
+
                 
                 'quantity_pro.required'=>'Bạn chưa nhập số lượng sản phẩm !!!',
-                'discount_pro.required'=>'Bạn chưa nhập khuyến mại !!!'
+                'quantity_pro.min'=>'Số lượng không được âm !!!',
+
+                'discount_pro.required'=>'Bạn chưa nhập khuyến mại !!!',
+                'discount_pro.min'=>'Khuyến mại không được âm !!!'
             ]
         );
+        /*if($request->price_pro < 0 || $request->price_pro = 0){
+            alert('Giá phải lớn hơn 0');
+        }*/
 
         $pro = Product::find($id);
         $pro->name_pro = $request->name_pro;

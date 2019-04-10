@@ -127,7 +127,7 @@ class EmployeeController extends Controller
 	    		$newName = str_random(5)."_".$name;
 	    	}
 	    	$fileAnh->move("upload/employee", $newName);
-            unlink("upload/employee/". $emp->avatar_emp);
+            //unlink("upload/employee/". $emp->avatar_emp);
 	    	$emp->avatar_emp = $newName;
 	    }
 

@@ -14,10 +14,10 @@
 <!-- Home -->
 
 	<div class="home">
-		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{{ url('images/shop_background.jpg') }}"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">Danh sách sản phẩm</h2>
+			<h2 class="home_title" style="font-family: arial; font-weight: bold; text-shadow: rgba(0,0,0,.01) 0 0 1px;">Danh sách sản phẩm</h2>
 		</div>
 	</div>
 
@@ -35,7 +35,7 @@
 							<ul class="sidebar_categories">
 							@foreach($cate as $item)
 								@if(count($item->trade) > 0)
-								<li><a href="#">{{ $item->name_cate }}</a></li>
+								<li style="padding-top: 30px;"><a href="#">{{ $item->name_cate }}</a></li>
 								<ul>
 			                        @foreach($item->trade as $tra)
 		                    		<li class="list-group-item">
@@ -93,7 +93,11 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span> </span> {{ $tra_shop->name_trade }}</div>
+						<?php $dem=0 ?>
+						@foreach($pro_shop as $item)
+							<?php $dem++; ?>
+						@endforeach
+							<div class="shop_product_count"><span><?php echo $dem; ?> </span>&nbsp; {{ $tra_shop->name_trade }}</div>
 							<div class="shop_sorting">
 								<!-- <span>Sort by:</span>
 								<ul>
@@ -121,7 +125,7 @@
 								<div class="product_border"></div>
 								<div class="product_image d-flex flex-column align-items-center justify-content-center">
 									<a href='{{ url("product/$item->id") }}'>
-										<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" alt="" style="height: 100px;">
+										<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" alt="" style="height: 110px;">
 									</a>
 								</div>
 								<div class="product_content">
@@ -187,7 +191,7 @@
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
 									<div class="viewed_image">
 										<a href='{{ url("product/$item->id") }}'>
-											<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="width: 100px; height: 100px;" alt="">
+											<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="width: 100px; height: 125px;" alt="">
 										</a>
 									</div>
 									<?php 

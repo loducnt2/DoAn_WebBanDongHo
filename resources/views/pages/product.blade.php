@@ -95,7 +95,7 @@
 
 							<div class="button_container">
 								<button type="button" class="button cart_button">
-									<a href="{{ url('cart/add/'. $pro_pro->id ) }}">Chọn mua</a>
+									<a href="{{ url('cart/add/'. $pro_pro->id ) }}">Thêm vào giỏ hàng</a>
 								</button>
 								<div class="product_fav"><i class="fas fa-heart"></i></div>
 							</div>
@@ -167,7 +167,7 @@
 				            	<div class="cud_media rep_cud_media">
 						           <div>
 							           	<a class="cud_pull-left" href="#">
-							                <img width="70px" height="70px" src="" alt="">
+							                <img width="70px" height="70px" src="{{  url('upload/user/'.$itemList->user->avatar ) }}" alt="">
 							            </a>
 						           </div>
 						            <div class="cud_media-body">

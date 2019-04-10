@@ -12,24 +12,22 @@
 */
 
 /*
-
-	- Trả lời bình luận sản phẩm
-		+ Không load được ảnh của nguồi trả lời bình luận
-
 	- In doanh thu ra pdf
 		+ 2019-03-05 16:43:44: Muốn lấy giá trị ngày/tháng/năm thôi ???
 	
 	- Đang lỗi phần đăng nhập giữa admin và client (Muốn tách biệt giữa tài khoản đăng nhập của admin và client)
-	
-	- Lọc email từ DS nguwoif đăng ký nhận tin để gửi mail
-		+ Gửi mail hàng loạt cho các email đã lọc được
-	- Phần hủy hóa đơn : Chỉnh sửa lại trạng thái chưa ổn
 
 
 	- Local phần các sản phẩm vừa xem
 	- Có các bài so sánh giữa 2 sản phẩm
 	- Gợi ý theo danh mục - Theo khoảng giá
 	- Chưa phân quyền rõ ràng chỗ Admin với nhân viên trong Admin như tạo mới, sửa, thêm người dùng
+
+	- Phần theo dõi đơn hang
+		+ List ra các sản phẩm thuộc các hóa đơn khác nhau chưa được thanh toán của 1 User
+	- Chỉnh sửa lại phần footer theo DangQuang
+	- Cách làm phần bài viết và các trang footer- nó bị lỗi font chữ
+		(Làm html riêng hay là bỏ vào CSDL rồi in ra)
 
 */
 
@@ -234,6 +232,9 @@ Route::group(['middleware'  => ['adminLogin']], function (){
 	    });
 	    Route::group(['prefix'=>'newsletter'], function () {
 	        Route::get('list', 'Admin\NewsletterController@getList');
+
+	        Route::get('send-mail', 'Admin\NewsletterController@getSendMail');
+	        Route::post('send-mail', 'Admin\NewsletterController@postSendMail');
 
 	        Route::get('delete/{id}', 'Admin\NewsletterController@getDelete');
 	    });

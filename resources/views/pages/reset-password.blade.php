@@ -37,9 +37,16 @@
                             {{ session('notifyFail') }}
                         </div>
                     @endif
+                    
                     @if(session('notifySuccess'))
                         <div class="alert alert-success">
                             {{ session('notifySuccess') }}
+                        </div>
+                    @endif
+
+                    @if(session('resetPass'))
+                        <div class="alert alert-danger">
+                            {{ session('resetPass') }}
                         </div>
                     @endif
 

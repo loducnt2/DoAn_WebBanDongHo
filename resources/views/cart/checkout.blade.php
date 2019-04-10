@@ -104,11 +104,23 @@
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							    <div class="form-group">
 							    	<label for="delivery_phone">Số điện thoại nhận hàng:</label>
-							    	<input type="text" name="delivery_phone" value="{{ Auth::user()->phone }}" class="form-control" style="color: black;">
+							    	<input type="text" name="delivery_phone" 
+							    	@if(Auth::check())
+							    		value="{{ Auth::user()->phone }}" 
+							    	@else
+							    		value="" 
+							    	@endif
+							    	class="form-control" style="color: black;">
 							    </div>
 							    <div class="form-group">
 							    	<label for="delivery_address">Địa chỉ giao hàng:</label>
-							    	<input type="text" name="delivery_address" value="{{ Auth::user()->address }}" class="form-control" style="color: black;" >
+							    	<input type="text" name="delivery_address" 
+							    	@if(Auth::check())
+							    		value="{{ Auth::user()->address }}" 
+							    	@else
+							    		value="" 
+							    	@endif
+							    	class="form-control" style="color: black;" >
 							    </div>
 							    <div class="form-group">
 							    	<label for="note_order">Lời nhắn:</label>

@@ -66,37 +66,12 @@
                                     <label>Nhập lại mật khẩu (*)</label>
                                     <input type="password" class="form-control" name="passwordAgain" placeholder="Nhập lại mật khẩu..." />
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label>Họ</label>
-                                    <input class="form-control" name="last_name" placeholder="Họ">
-                                </div>
-                                <div class="form-group">
-                                    <label>Tên</label>
-                                    <input class="form-control" name="first_name" placeholder="Tên">
-                                </div>
-                                <div class="form-group">
-                                    <label>Ảnh đại diện</label>
-                                    <input type="file" class="form-control" name="avatar" />
-                                </div> -->
                                 <div class="form-group">
                                     <label>Số điện thoại (*)</label>
                                     <input type="number" class="form-control" name="phone" placeholder="Số điện thoại">
                                 </div>
-                                <div class="form-group">
-                                    <label>Địa chỉ (*)</label>
-                                    <input class="form-control" name="address" placeholder="Địa chỉ">
-                                </div>
-                                <!-- <div class="form-group">
-                                    <label>Giới tính</label>
-                                    <label class="radio-inline">
-                                        <input name="gender" value="0" checked="true" type="radio">Nam
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input name="gender" value="1" type="radio">Nữ
-                                    </label>
-                                </div> -->
 
-                                <button type="submit" class="btn btn-primary">Tạo mới</button>
+                                <button type="submit" class="btn btn-primary">Tạo tài khoản</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                     </div>

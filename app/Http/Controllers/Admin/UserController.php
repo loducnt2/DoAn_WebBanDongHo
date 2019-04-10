@@ -28,6 +28,9 @@ class UserController extends Controller
 
         if (Auth::attempt(['email'=>$request->email, 'password'=>$request->password])) {
             return redirect('admin/adminpage');
+        }
+        if (Auth::attempt(['name'=>$request->email, 'password'=>$request->password])) {
+            return redirect('admin/adminpage');
         }else{
             return redirect('admin/login')->with('notify', 'Đăng nhập không thành công, sai tài khoản hoặc mật khẩu!');
         }
@@ -67,7 +70,7 @@ class UserController extends Controller
     }
     public function postCreate(Request $request){
     	$validatedData = $request->validate([
-	        'name' => 'required|min:2|max:255',
+	        'name' => 'required|min:2|unique:users',
 	        'email' => 'required|unique:users',
 	        'password' => 'required|min:6',
 	        'passwordAgain' => 'required|same:password',
@@ -77,7 +80,7 @@ class UserController extends Controller
     		[
     			'name.required'=>'Tên đămg nhập bắt buộc phải nhập !!!',
     			'name.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
-    			'name.max'=>'Tên từ 2 - 100 ký tự nhé !!!',
+    			'name.unique'=>'Tên này đã có người sử dụng, mời bạn chọn tên mới!',
                 
     			'email.required'=>'Bạn chưa nhập email !!!',
     			'email.unique'=>'Email này đã tồn tại !!!',
@@ -140,7 +143,7 @@ class UserController extends Controller
     }
     public function postEdit(Request $request, $id){
     	$validatedData = $request->validate([
-	        'name' => 'required|min:2|max:255',
+	        'name' => 'required|min:2|unique:users',
 	        'last_name' => 'required|min:2',
 	        'first_name' => 'required|min:2',
 	        'phone' => 'required|regex:/^(0)[0-9]{9}$/',
@@ -150,7 +153,7 @@ class UserController extends Controller
     		[
     			'name.required'=>'Tên đămg nhập bắt buộc phải nhập !!!',
     			'name.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
-    			'name.max'=>'Tên từ 2 - 100 ký tự nhé !!!',
+    			'name.unique'=> 'Tên này đã có người sử dụng, mời bạn chọn tên mới!',
 
     			'last_name.required'=>'Bạn chưa nhập họ !!!',
     			'last_name.min'=>'Họ tên từ 2 ký tự trở lên !!!',

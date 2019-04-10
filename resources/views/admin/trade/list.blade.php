@@ -10,11 +10,12 @@
                 <h1 class="page-header">Danh sách thương hiệu</h1>
             </div>
             <!-- end  page header -->
-            @if(Session::has('success'))
+
+            @if(session('success'))
                 <div class="col-lg-12">
-                    <h1 class="page-header" style="background-color: #09a80f; color: white">
-                        {{ Session::get('success') }}
-                    </h1>
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
                 </div>
             @endif
         </div>
