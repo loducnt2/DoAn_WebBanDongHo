@@ -79,7 +79,7 @@
 								<input type="text" name="keyword" class="header_search_input" placeholder="Tìm kiếm sản phẩm...">
 								<div class="custom_dropdown">
 									<div class="custom_dropdown_list">
-										<span class="custom_dropdown_placeholder clc"></span>
+										<span class="custom_dropdown_placeholder clc"><!-- All Categories --></span>
 										<!-- <i class="fas fa-chevron-down"></i>  -->
 										<ul class="custom_list clc">
 											<li><a class="clc" href="#">All Categories</a></li>

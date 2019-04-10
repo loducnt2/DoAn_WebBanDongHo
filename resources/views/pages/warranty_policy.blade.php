@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('tieude')
-	Cudlo giao hàng trong bao lâu?
+	Chính sách bảo hành
 @endsection
 
 @section('css')
@@ -16,10 +16,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-				<div class="single_post_title"></div>
+				<div class="single_post_title" style="font-family: arial; font-weight: bold;">Chính sách bảo hành</div>
 				<div class="single_post_text">
 					@foreach($customerCare as $item)
-						<p>{!! $item->delivery_time !!}</p>
+						<p>{!! $item->warranty_policy !!}</p>
 					@endforeach
 				</div>
 			</div>

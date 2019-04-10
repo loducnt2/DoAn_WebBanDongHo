@@ -34,8 +34,22 @@
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 
                                 <div class="form-group">
+                                    <label>Chính sách bảo hành</label>
+                                    <textarea class="form-control ckeditor" id="demo" rows="3" name="warranty_policy">{{ $customerCare->warranty_policy }}</textarea>
+                                    <script type="text/javascript">
+                                        CKEDITOR.replace("demo");
+                                    </script>
+                                </div>
+                                <div class="form-group">
                                     <label>Chính sách đổi trả</label>
                                     <textarea class="form-control ckeditor" id="demo" rows="3" name="return_policy">{{ $customerCare->return_policy }}</textarea>
+                                    <script type="text/javascript">
+                                        CKEDITOR.replace("demo");
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    <label>Chính sách bảo mật thông tin</label>
+                                    <textarea class="form-control ckeditor" id="demo" rows="3" name="info_security_policy">{{ $customerCare->info_security_policy }}</textarea>
                                     <script type="text/javascript">
                                         CKEDITOR.replace("demo");
                                     </script>
@@ -48,8 +62,22 @@
                                     </script>
                                 </div>
                                 <div class="form-group">
-                                    <label>Cudlo giao hàng trong bao lâu?</label>
-                                    <textarea class="form-control ckeditor" id="demo" rows="3" name="delivery_time">{{ $customerCare->delivery_time }}</textarea>
+                                    <label>Chính sách vận chuyển</label>
+                                    <textarea class="form-control ckeditor" id="demo" rows="3" name="delivery_policy">{{ $customerCare->delivery_policy }}</textarea>
+                                    <script type="text/javascript">
+                                        CKEDITOR.replace("demo");
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    <label>Hướng dẫn thanh toán</label>
+                                    <textarea class="form-control ckeditor" id="demo" rows="3" name="payment_guide">{{ $customerCare->payment_guide }}</textarea>
+                                    <script type="text/javascript">
+                                        CKEDITOR.replace("demo");
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    <label>Hướng dẫn mua hàng</label>
+                                    <textarea class="form-control ckeditor" id="demo" rows="3" name="shopping_guide">{{ $customerCare->shopping_guide }}</textarea>
                                     <script type="text/javascript">
                                         CKEDITOR.replace("demo");
                                     </script>

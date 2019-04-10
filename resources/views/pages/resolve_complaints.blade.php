@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-				<div class="single_post_title"></div>
+				<div class="single_post_title" style="font-family: arial; font-weight: bold;">Chính Sách Giải Quyết Khiếu Nại</div>
 				<div class="single_post_text">
 					@foreach($company as $item)
 						<p>{!! $item->resolve_complaints !!}</p>

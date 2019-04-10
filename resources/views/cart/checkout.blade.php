@@ -103,7 +103,7 @@
 							<form action="{{ url('cart/checkout') }}" method="POST">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							    <div class="form-group">
-							    	<label for="delivery_phone">Số điện thoại nhận hàng:</label>
+							    	<label for="delivery_phone">Số điện thoại nhận hàng(*)</label>
 							    	<input type="text" name="delivery_phone" 
 							    	@if(Auth::check())
 							    		value="{{ Auth::user()->phone }}" 
@@ -113,7 +113,7 @@
 							    	class="form-control" style="color: black;">
 							    </div>
 							    <div class="form-group">
-							    	<label for="delivery_address">Địa chỉ giao hàng:</label>
+							    	<label for="delivery_address">Địa chỉ giao hàng(*)</label>
 							    	<input type="text" name="delivery_address" 
 							    	@if(Auth::check())
 							    		value="{{ Auth::user()->address }}" 

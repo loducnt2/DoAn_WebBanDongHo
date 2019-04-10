@@ -79,9 +79,13 @@
 					<div class="footer_title">Hỗ trợ khách hàng</div>
 					<ul class="footer_list">
 						<li><a href="{{ url('client') }}">Tài khoản</a></li>
+						<li><a href="{{ url('warranty_policy') }}">Chính sách bảo hành</a></li>
 						<li><a href="{{ url('return_policy') }}">Chính sách đổi trả</a></li>
+						<li><a href="{{ url('info_security_policy') }}">Bảo mật thông tin</a></li>
+						<li><a href="{{ url('delivery_policy') }}">Chính sách vận chuyển</a></li>
 						<li><a href="{{ url('policy_foreigner') }}">Chính sách hàng nhập khẩu</a></li>
-						<li><a href="{{ url('delivery_time') }}">Cudlo giao hàng trong bao lâu?</a></li>
+						<li><a href="{{ url('payment_guide') }}">Hướng dẫn thanh toán</a></li>
+						<li><a href="{{ url('shopping_guide') }}">Hướng dẫn mua hàng</a></li>
 					</ul>
 				</div>
 			</div>

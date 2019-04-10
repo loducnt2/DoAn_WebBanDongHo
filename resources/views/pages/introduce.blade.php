@@ -16,10 +16,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-				<div class="single_post_title">Giới thiệu về Cudlo</div>
+				<div class="single_post_title" style="font-family: arial; font-weight: bold;">CudLo nhà nhập khẩu đồng hồ chính hãng Thụy Sỹ</div>
 				<div class="single_post_text">
 					@foreach($company as $item)
-						<p style="font-family: arial; font-weight: bold;">{!! $item->introduce !!}</p>
+						{!! $item->introduce !!}
 					@endforeach
 				</div>
 			</div>

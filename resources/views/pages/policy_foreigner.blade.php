@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-				<div class="single_post_title"></div>
+				<div class="single_post_title" style="font-family: arial; font-weight: bold;">Chính Sách Giao Đối Với Hàng Từ Nước Ngoài</div>
 				<div class="single_post_text">
 					@foreach($customerCare as $item)
 						<p>{!! $item->policy_foreigner !!}</p>

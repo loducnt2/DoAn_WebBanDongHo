@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('tieude')
-	Điều khoản sử dụng
+	Chính sách bảo mật thông tin
 @endsection
 
 @section('css')
@@ -16,10 +16,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-				<div class="single_post_title" style="font-family: arial; font-weight: bold;">Điều Khoản Sử Dụng</div>
+				<div class="single_post_title" style="font-family: arial; font-weight: bold;">Chính sách bảo mật thông tin</div>
 				<div class="single_post_text">
-					@foreach($company as $item)
-						<p>{!! $item->rules !!}</p>
+					@foreach($customerCare as $item)
+						<p>{!! $item->info_security_policy !!}</p>
 					@endforeach
 				</div>
 			</div>

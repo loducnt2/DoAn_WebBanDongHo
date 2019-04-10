@@ -25,9 +25,6 @@
 
 	- Phần theo dõi đơn hang
 		+ List ra các sản phẩm thuộc các hóa đơn khác nhau chưa được thanh toán của 1 User
-	- Chỉnh sửa lại phần footer theo DangQuang
-	- Cách làm phần bài viết và các trang footer- nó bị lỗi font chữ
-		(Làm html riêng hay là bỏ vào CSDL rồi in ra)
 
 */
 
@@ -90,12 +87,17 @@ Route::post('client', 'PagesController@postClient');
 
 /* - - - -- - -      FOOTER      - - - -- */
 Route::get('introduce', 'PagesController@getIntroduce');
+Route::get('introduce1', 'PagesController@getIntroduce1');
 Route::get('resolve_complaints', 'PagesController@getResolveComplaints');
 Route::get('rules', 'PagesController@getRules');
-Route::get('return_policy', 'PagesController@getReturnPolicy');
-Route::get('policy_foreigner', 'PagesController@getPolicyForeigner');
-Route::get('delivery_time', 'PagesController@getDeliveryTime');
 
+Route::get('warranty_policy', 'PagesController@getWarranty');
+Route::get('return_policy', 'PagesController@getReturnPolicy');
+Route::get('info_security_policy', 'PagesController@getInfoSecurity');
+Route::get('policy_foreigner', 'PagesController@getPolicyForeigner');
+Route::get('delivery_policy', 'PagesController@getDeliveryPolicy');
+Route::get('payment_guide', 'PagesController@getPaymentGuide');
+Route::get('shopping_guide', 'PagesController@getShoppingGuide');
 
 /*- - - - - - - - - - - - - - - - - - - - - -  */
 

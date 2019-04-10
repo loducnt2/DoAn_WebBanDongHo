@@ -38,6 +38,10 @@
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
+/* ----------------------- */
+
+
+/* ----------------------- */
 body
 {
 	font-family: 'Rubik', sans-serif;
@@ -1249,9 +1253,15 @@ select option
 	color: rgba(0,0,0,0.7);
 	line-height: 2;
 }
-.single_post_text p:not(:first-of-type)
-{
-	margin-top: 42px;
+.single_post_text p:not(:first-of-type){
+	/* margin-top: 43px; */
+	font-family: arial;
+	font-weight: 400;
+}
+.single_post_text h2:not(:first-of-type){
+	/* margin-top: 43px; */
+	font-family: arial;
+	font-weight: 400;
 }
 .single_post_quote
 {

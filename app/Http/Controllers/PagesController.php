@@ -63,20 +63,36 @@ class PagesController extends Controller
     public function getIntroduce(){
         return view('pages.introduce');
     }
+    public function getIntroduce1(){
+        return view('pages.introduce1');
+    }
+
     public function getResolveComplaints(){
         return view('pages.resolve_complaints');
     }
     public function getRules(){
         return view('pages.rules');
     }
+    public function getWarranty(){
+        return view('pages.warranty_policy');
+    }
     public function getReturnPolicy(){
         return view('pages.return_policy');
+    }
+    public function getInfoSecurity(){
+        return view('pages.info_security_policy');
     }
     public function getPolicyForeigner(){
         return view('pages.policy_foreigner');
     }
-    public function getDeliveryTime(){
-        return view('pages.delivery_time');
+    public function getDeliveryPolicy(){
+        return view('pages.delivery_policy');
+    }
+    public function getPaymentGuide(){
+        return view('pages.payment_guide');
+    }
+    public function getShoppingGuide(){
+        return view('pages.shopping_guide');
     }
 
 

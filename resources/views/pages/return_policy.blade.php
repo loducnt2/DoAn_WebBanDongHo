@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-				<div class="single_post_title">Chính sách đổi trả</div>
+				<div class="single_post_title" style="font-family: arial; font-weight: bold;">Chính sách đổi trả</div>
 				<div class="single_post_text">
 					@foreach($customerCare as $item)
 						<p>{!! $item->return_policy !!}</p>
