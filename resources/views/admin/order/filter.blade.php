@@ -22,39 +22,25 @@
             <div class="col-lg-12">
                 <!-- Advanced Tables -->
                 <div class="panel panel-default">
-                    <!-- <div class="panel-heading">
-                        Danh sách hóa đơn
-                    </div> -->
+                    <div class="panel-heading">
+                        <p>
+                            <a href="{{ url('admin/order/list') }}">Danh sách hóa đơn</a>
+                        </p>
+                    </div>
                     <div class="panel-body">
+                        @if($date2 != '')
+                            <p>Từ ngày {{ $date1 }} đến {{ $date2 }}</p>
+                        @else
+                            <p>Ngày {{ $date1 }}</p>
+                        @endif
                         <div class="table-responsive">
-                            <!-- <div class="row">
-                                <div class="col-sm-8">
-                                    <div id="dataTables-example_filter" class="dataTables_filter">
-                                        <form action="{{ url('admin/order/filter') }}" method="POST">
-                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                            <label class="lable-search-admin">
-                                                <input type="date" name="date1" class="form-control input-sm" aria-controls="dataTables-example"/>
-                                                <input type="date" name="date2" class="form-control input-sm" aria-controls="dataTables-example"/>
-                                                <input type="submit" value="Lọc" style="width: 80px" />
-                                            </label>
-                                        </form>
-                                    </div>
-                                </div>
+                            <div class="row">
                                 <div class="col-sm-4 search-admin">
                                     <div id="dataTables-example_filter" class="dataTables_filter">
-                                        <form action="{{ url('admin/order/list') }}" method="GET">
-                                            <label class="lable-search-admin">
-                                                <input type="search" name="keyword" class="form-control input-sm" aria-controls="dataTables-example"
-                                                       @if(Request::has('keyword'))
-                                                       value="{{ Request::get('keyword') }}"
-                                                       @endif
-                                                       placeholder="Tìm kiếm..." />
-                                                <input type="submit" value="Tìm kiếm" style="width: 80px" />
-                                            </label>
-                                        </form>
+                                        <a href="{{ url('print') }}"><button style="width: 80px">In</button></a>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr role="row">

@@ -45,7 +45,7 @@
                                 <input type="hidden" name="name_con" value="{{ $con->name_con }}">
                                 <input type="hidden" name="email_con" value="{{ $con->email_con }}">
 
-                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                <button type="submit" class="btn btn-primary">Gửi</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                         </div>

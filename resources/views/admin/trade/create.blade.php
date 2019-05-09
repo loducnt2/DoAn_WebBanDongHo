@@ -58,26 +58,14 @@
                                     <input type="file" class="form-control" name="avt_trade" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Địa chỉ</label>
-                                    <input class="form-control" name="address_trade" placeholder="Địa chỉ">
-                                </div>
-                                <div class="form-group">
                                     <label>Miêu tả</label>
                                     <textarea class="form-control ckeditor" id="demo"  rows="3" name="description_trade"></textarea>
                                     <script type="text/javascript">
                                         CKEDITOR.replace("demo");
                                     </script>
                                 </div>
-                                <div class="form-group">
-                                    <label>Tên danh mục (*)</label>
-                                    <select class="form-control" name="category">
-                                        @foreach($cate as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name_cate }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
 
-                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                <button type="submit" class="btn btn-primary">Thêm mới</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                         </div>

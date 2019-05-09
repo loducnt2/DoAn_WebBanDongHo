@@ -67,7 +67,7 @@
                                     </script>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                         </div>

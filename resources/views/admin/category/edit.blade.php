@@ -49,7 +49,7 @@
                                     <input class="form-control" name="name_cate" placeholder="Tên danh mục" value="{{ $cate->name_cate }}">
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                         </div>

@@ -14,6 +14,7 @@ use App\Category;
 use App\Newsletter;
 use App\Post;
 use App\Contact;
+use App\Trademark;
 
 class DashboardController extends Controller
 {
@@ -23,7 +24,7 @@ class DashboardController extends Controller
         $orderCount = Order::count();
         $empCount = Employee::count();
         $proCount = Product::count();
-        $brandCount = Brand::count();
+        $tradeCount = Trademark::count();
         $newsletterCount = Newsletter::count();
         $postCount = Post::count();
         $contactCount = Contact::count();
@@ -35,6 +36,6 @@ class DashboardController extends Controller
            $order = Order::orderBy('id','DESC')->paginate(15);
         }
 
-        return view('admin.dashboard', compact('userCount', 'orderCount', 'proCount', 'empCount', 'brandCount', 'order', 'newsletterCount', 'postCount', 'contactCount'));
+        return view('admin.dashboard', compact('userCount', 'orderCount', 'proCount', 'empCount', 'tradeCount', 'order', 'newsletterCount', 'postCount', 'contactCount'));
     }
 }

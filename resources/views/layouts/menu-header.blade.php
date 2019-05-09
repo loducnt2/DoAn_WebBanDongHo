@@ -50,7 +50,7 @@
 							@foreach($cate as $item)
 								
 							<li class="hassubs" style="margin-right: 15px;">
-								<a href="#" style="font-size: 16px;">{{ $item->name_cate }}<i class="fas fa-chevron-down"></i></a>
+								<a href='{{ url("category/$item->id") }}' style="font-size: 16px;">{{ $item->name_cate }}<!-- <i class="fas fa-chevron-down"></i> --></a>
 								<ul>
 									<!-- <li>
 										<a href="#">Menu Item<i class="fas fa-chevron-down"></i></a>
@@ -60,10 +60,9 @@
 											<li><a href="#">Menu Item<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li> -->
-
-									@foreach($item->trade as $tra)
-										<li><a href='{{ url("shop/$tra->id") }}'>{{ $tra->name_trade }}<i class="fas fa-chevron-down"></i></a></li>
-									@endforeach
+									
+									<!--   day nhé  -->
+									
 
 								</ul>
 							</li>

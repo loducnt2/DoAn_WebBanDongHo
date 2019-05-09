@@ -20,13 +20,16 @@ use App\Post;
 use App\Customercare;
 use App\ListComment;
 
+use App\Province;
+use App\District;
+use App\Commune;
+
 use Auth;
 use View;
 use Mail;
 
 use Cart;
 use Session;
-
 
 class PagesController extends Controller
 {	
@@ -117,7 +120,8 @@ class PagesController extends Controller
                     'price' => $product->price_pro,
                     'options' => [
                         'thumbnail_pro' => $product->thumbnail_pro,
-                        'discount_pro' => $product->discount_pro
+                        'discount_pro' => $product->discount_pro,
+                        'quantity_pro' => $product->quantity_pro
                     ]
                 ]
             );
@@ -145,21 +149,25 @@ class PagesController extends Controller
         Cart::destroy();
         return redirect()->back();
     }
-    public function updateCart(Request $request){
+
+    public function updateQty(Request $request){
         $qty = $request->SoLuongMoi;
         $id = $request->IdCart;
+
         if($qty < 1){
             die("Số lượng phải lớn hơn 0");
         }else{
             Cart::update($id, $qty);
             return redirect('cart');
-        }
-
-        
+        }   
     }
 
+
     public function getCheckout(){
-        return view('cart.checkout');
+        $province = Province::all();
+        $district = District::all();
+        $commune = Commune::all();
+        return view('cart.checkout', compact('province', 'district', 'commune'));
     }
     public function postCheckout(Request $request){
         if(Cart::content()->count() <= 0) {
@@ -171,13 +179,11 @@ class PagesController extends Controller
         }
 
         $validatedData = $request->validate([
-            'delivery_phone' => 'required|regex:/^(0)[0-9]{9}$/',
-            'delivery_address' => 'required'
+            'delivery_phone' => 'required|regex:/^(0)[0-9]{9}$/'
         ], 
             [
                 'delivery_phone.required'=>'Bạn chưa nhập số điên thoại nhận hàng !!!',
-                'delivery_phone.regex'=>'SĐT không đúng định dạng !!!',
-                'delivery_address.required'=>'Bạn chưa nhập địa chỉ giao hàng !!!'
+                'delivery_phone.regex'=>'SĐT không đúng định dạng !!!'
             ]
         );
 
@@ -186,51 +192,71 @@ class PagesController extends Controller
         foreach (Cart::content() as $key => $item){
             $Newdiscount = (100-$item->options->discount_pro)/100;
             $totalAmount += ($item->qty*$item->price*$Newdiscount);
+            if( ($item->options->quantity_pro - $item->qty) < 0 ){
+                Session::flash('error', 'Sản phẩm đã hết hàng, Vui lòng quay lại sau !');
+                return redirect()->back();
+                die();
+            }
         }
 
-        $order = new Order();
-        
-        $order->delivery_phone = $request->delivery_phone;
-        $order->delivery_address = $request->delivery_address;
-        $order->note_order = $request->note_order;
-        $order->total = $totalAmount;
-        $order->status_order = 1;
-        $order->idEmployee = 1;
+        // LƯU THÔNG TU VÀO orders
+            $order = new Order();
+            
+            $pro = Province::where('id', $request->province)->first();
+            $dis = District::where('maqh', $request->district)->first();
+            $com = Commune::where('xaid', $request->commune)->first();
 
-        if(Auth::check()) {
-            $order->idUser = Auth::user()->id;
-        }
+    if($request->changeAddress == "on"){
+        $validatedData = $request->validate([
+        'house_number' => 'required'
+        ], 
+            [
+                'house_number.required'=>'Bạn chưa nhập số nhà này !!!'
+            ]
+        ); 
+        $order->delivery_address = $request->house_number." - " .$com->name ." - " .$dis->name ." - " .$pro->name;
+    }else{
+        $order->delivery_address = Auth::user()->address;
+    }
+            $order->delivery_phone = $request->delivery_phone;
+            $order->note_order = $request->note_order;
+            $order->total = $totalAmount;
+            $order->status_order = 1;
+            $order->idEmployee = 1;
 
-        /*echo "<pre>";
-        //print_r($relative_pro->toArray());
-        echo Auth::user()->id;
-        die();*/
+            if(Auth::check()) {
+                $order->idUser = Auth::user()->id;
+            }
+            $order->save();
 
-        $order->save();
+            
+            //LƯU THÔNG TIN VÀO orderdetail
+           /* $totalAmount = 0;*/
+            foreach (Cart::content() as $key => $item){
+                $orderDetail = new Orderdetail();
+                $orderDetail->idOrder = $order->id;
+                $orderDetail->idProduct = $item->id;
+                $orderDetail->quantity = $item->qty;
+                $orderDetail->price = $item->price;
+                $orderDetail->discount = $item->options->discount_pro;
+                $orderDetail->save();
+                /*$totalAmount += ($item->price * $item->qty);*/
 
+                // GIẢM SỐ LƯỢNG SẢN PHẨM SAU KHI HÓA ĐƠN ĐƯỢC ĐẶT
+                $product = Product::find($item->id); 
+                $product->quantity_pro = $item->options->quantity_pro - $item->qty;
+                $product->save();
+            }
+           /* $order->amount = $totalAmount;*/
 
-        //luu thong tin chi tiet hoa don
-       /* $totalAmount = 0;*/
-        foreach (Cart::content() as $key => $item){
-            $orderDetail = new Orderdetail();
-            $orderDetail->idOrder = $order->id;
-            $orderDetail->idProduct = $item->id;
-            $orderDetail->quantity = $item->qty;
-            $orderDetail->price = $item->price;
-            $orderDetail->discount = $item->options->discount_pro;
-            $orderDetail->save();
-
-            /*$totalAmount += ($item->price * $item->qty);*/
-        }
-       /* $order->amount = $totalAmount;*/
-
-        //xoa gio hang
+            //xoa gio hang
         Cart::destroy();
+
         $id_cus = Auth::user()->id;
-        //return redirect('home')->with('success', 'Bạn đã đặt hàng thành công!!!');
         return redirect('cart/order/'.$id_cus)->with('success', 'Bạn đã đặt hàng thành công!!!');
     }
 
+    /// Show phần hủy đơn hàng
     public function getOrder($id){
         if(Auth::check()) {
             $id = Auth::user()->id;
@@ -238,12 +264,12 @@ class PagesController extends Controller
 
             //$orders = Order::find($id);
 
-            $detail = Orderdetail::select('orderdetails.id', 'orderdetails.idOrder', 'orderdetails.idProduct', 'orderdetails.quantity', 'orderdetails.price', 'orderdetails.discount', 'orderdetails.created_at', 'orderdetails.updated_at')
+            /*$detail = Orderdetail::select('orderdetails.id', 'orderdetails.idOrder', 'orderdetails.idProduct', 'orderdetails.quantity', 'orderdetails.price', 'orderdetails.discount', 'orderdetails.created_at', 'orderdetails.updated_at')
             ->join('orders', 'orders.id', '=', 'orderdetails.idOrder')
             ->where('orders.idUser', $id)
             ->where('orders.status_order', '<>', 0)
             ->where('orders.status_order', '<>', 3)
-            ->get();
+            ->get();*/
 
             $orders = Order::select('orders.id', 'orders.idUser', 'orders.delivery_phone', 'orders.delivery_address', 'orders.note_order', 'orders.total', 'orders.status_order','orders.created_at', 'orders.updated_at', 'users.name')
             ->join('users', 'users.id', '=', 'orders.idUser')
@@ -252,56 +278,61 @@ class PagesController extends Controller
             ->where('orders.status_order', '<>', 3)
             ->get();
 
-
-       /* echo "<pre>";
-        print_r($orders->toArray());
-        die();
-*/
-
+           /* echo "<pre>";
+            print_r($orders->toArray());
+            die();*/
             return view('cart.order', compact('detail', 'orders'));
         }else{
             die('Bạn chưa tạo hóa đơn nào');
         }
-        
-       
-        
     }
+    // Hủy đơn hàng
     public function postOrder($id){
         $id = Auth::user()->id;
 
-        $order = DB::update('update orders set status_order = 3 where orders.status_order = 1 OR orders.status_order = 2 AND orders.idUser = '.$id);
+        /*$order = DB::update('update orders set status_order = 3 where orders.status_order = 1 OR orders.status_order = 2 AND orders.idUser = '.$id);*/
+
+        $order = DB::update('update products INNER JOIN orderdetails ON orderdetails.idProduct = products.id INNER JOIN orders ON orders.id = orderdetails.idOrder SET products.quantity_pro = products.quantity_pro + orderdetails.quantity, orders.status_order = 3 WHERE orders.status_order = 1 AND orders.idUser = '.$id);
 
         return redirect('home')->with('notifyDeleteOrder', 'Bạn đã hủy đơn hàng thành công!');
     }
 
    /* - - - - - -    END LARAVEL CART   - - - - -  - - -*/  
 	public function getHome(){
-		//$product = Product::all();
+
+        // 
 		$product = Product::orderBy('id','DESC')->take(24)->get();
+
+        // CÁC SP KHUYẾN MẠI
 		$product_dis = Product::where('discount_pro', '>', 0)->orderBy('id','DESC')->take(24)->get();
+
+        // CÁC SP BÁN CHẠY
         $products_hot_sell = Product::select('products.*')
             ->join('orderdetails', 'products.id', '=', 'orderdetails.idProduct')
             ->where('orderdetails.quantity','>', '1')
             ->take(24)
             ->get();
+
+        // CÁC SẢN PHẨM NỔI BẬT
         $product_Noibat = Product::where('outstanding', '=', 1)->orderBy('id','DESC')->take(10)->get();
 
-        $cate_home = Category::take(3)->get();
+        /*$cate_home = Category::take(3)->get();
         $product_1 = Category::find(1)->product()->get();
         $product_3 = Category::find(3)->product()->get();
-        $product_4 = Category::find(4)->product()->get();
+        $product_4 = Category::find(4)->product()->get();*/
 
         $trade_1 = Product::where('idTrade', '=', 1)->orderBy('id','DESC')->take(20)->get();
         $trade_2 = Product::where('idTrade', '=', 2)->orderBy('id','DESC')->take(20)->get();
         $trade_3 = Product::where('idTrade', '=', 3)->orderBy('id','DESC')->take(20)->get();
+
         // Sản phẩm mới ở banner giữa
         $new_product = Product::orderBy('id','DESC')->take(5)->get();
 
 		/*echo "<pre>";
         print_r($trade_1->toArray());
-        die();
-*/
-    	return view('pages.home', compact('product', 'product_dis', 'product_Noibat', 'cate_home', 'product_1', 'product_3', 'product_4', 'new_product', 'trade_1', 'trade_2', 'trade_3', 'products_hot_sell'));
+        die();*/
+
+    	return view('pages.home', compact('product', 'product_dis', 'product_Noibat', 'new_product', 'trade_1', 'trade_2', 'trade_3', 'products_hot_sell'));
     }
     public function postHome(Request $request){
         $validatedData = $request->validate([
@@ -350,30 +381,57 @@ class PagesController extends Controller
     //  PHẦN  SẢN  PHẨM  -  Chi tiết sản phẩm
     public function getShop($id){
         $tra_shop = Trademark::find($id);
+
+        // DS sản phẩm theo từng thương hiệu
         $pro_shop = Product::where('idTrade', $id)->paginate(20);
 
         /*PHẦN  HIỆN  RA CÁC SẢN PHẨM LIÊN QUAN */
-        $pro_relative_shop = Product::all();
+        $product_Noibat = Product::where('outstanding', '=', 1)->orderBy('id','DESC')->take(10)->get();
         $tra_relative_shop = Trademark::all();
 
-    	return view('pages.shop', compact('tra_shop', 'pro_shop', 'pro_relative_shop', 'tra_relative_shop'));
+    	return view('pages.shop', compact('tra_shop', 'pro_shop', 'product_Noibat', 'tra_relative_shop'));
     }
     public function getProduct($id){
         $pro_pro = Product::find($id);
         $img_pro = Image::where('idProduct', $id)->orderBy('id','DESC')->take(3)->get();
 
         $trade_id = $pro_pro->trade->id;
-            /*PHẦN  HIỆN  RA CÁC SẢN PHẨM LIÊN QUAN */
+
+
+            /*PHẦN  HIỆN  RA CÁC SẢN PHẨM LIÊN QUAN - cùng thương hiệu */
         $relative_pro = Product::select('products.*')
             ->join('trademarks', 'products.idTrade', '=', 'trademarks.id')
             ->where('trademarks.id', $trade_id)
             ->where('products.id', '!=', $id)
             ->get();
+
+         /* CÁC SẢN PHẨM CÙNG KHOẢNG GIÁ */
+         $totalAmount = 0; 
+         $new_price = $pro_pro->price_pro;
+         $new_dis = $pro_pro->discount_pro;
+        $Newdiscount = (100-$new_dis)/100;
+        $totalAmount += ($new_price*$Newdiscount);
+        $same_price_pro = Product::select('products.id', 'products.name_pro', 'products.thumbnail_pro', 'products.price_pro', 'products.discount_pro', 'products.quantity_pro', 'products.status_pro', 'products.outstanding', 'products.description_pro', 'products.idTrade','products.created_at', 'products.updated_at')
+            ->whereBetween('products.price_pro', array($new_price - 500000, $new_price + 500000))
+         ->get();
+
         /*echo "<pre>";
-        print_r($relative_pro->toArray());
+        print_r($same_price_pro->toArray());
         die();*/
 
-        return view('pages.product', compact('pro_pro', 'relative_pro', 'img_pro'));
+        return view('pages.product', compact('pro_pro', 'relative_pro', 'img_pro', 'same_price_pro', 'trade_id'));
+    }
+
+    public function getCategory($id){
+        $cate_ID = Category::find($id);
+        //$category = Category::find($id)->product;
+        $product_cate = Product::where('idCate', $id)->get();
+
+        /*PHẦN  HIỆN  RA CÁC SẢN PHẨM LIÊN QUAN */
+        $product_Noibat = Product::where('outstanding', '=', 1)->where('idCate', '=', $id)->orderBy('id','DESC')->take(10)->get();
+        $tra_relative_shop = Trademark::all();
+
+        return view('pages.category', compact('cate_ID', 'product_cate', 'product_Noibat', 'tra_relative_shop'));
     }
 
     //-----------------     Phần POST - BÀI VIẾT  --------------
@@ -625,32 +683,26 @@ class PagesController extends Controller
 
 //  Khách hàng tự thay đổi thông tin của mình
     public function getClient(){
-        return view('pages.edit_client');
+        $province = Province::all();
+        $district = District::all();
+        $commune = Commune::all();
+        return view('pages.edit_client', compact('province', 'district', 'commune'));
     }
     public function postClient(Request $request){
         $validatedData = $request->validate([
-            'name' => 'required|min:2|unique:users',
             'phone' => 'required|regex:/^(0)[0-9]{9}$/',
-            'address' => 'required|min:2',
             'avatar' => 'unique:users',
         ], 
             [
-                'name.required'=>'Tên đămg nhập bắt buộc phải nhập !!!',
-                'name.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
-                'name.unique'=>'Tên này đã có người sử dụng, mời bạn chọn tên mới!',
-
                 'phone.required'=>'Bạn chưa nhập số điện thoại !!!',
                 'phone.regex'=>'SĐT không đúng định dạng !!!',
-
-                'address.required'=>'Bạn chưa nhập địa chỉ !!!',
-                'address.min'=>'Địa chỉ từ 2 ký tự trở lên !!!', 
 
                 'avatar.unique'=>'Tên ảnh này đã tồn tại !!!'
             ]
         );
 
         $user = Auth::user();
-        $user->name = $request->name;
+
         if($request->hasFile("avatar")){
             $fileAnh = $request->File("avatar");
 
@@ -674,7 +726,6 @@ class PagesController extends Controller
             $validatedData = $request->validate([
             'password' => 'required|min:6',
             'passwordAgain' => 'required|same:password'
-
             ], 
                 [
                     'password.required'=>'Bạn chưa nhập mật khẩu !!!',
@@ -687,14 +738,27 @@ class PagesController extends Controller
             $user->password = bcrypt($request->password);
         }
 
+        $pro = Province::where('id', $request->province)->first();
+        $dis = District::where('maqh', $request->district)->first();
+        $com = Commune::where('xaid', $request->commune)->first();
+
         $user->last_name = $request->last_name;
         $user->first_name = $request->first_name;
         $user->phone = $request->phone;
-        $user->address = $request->address;
+
+        if($request->changeAddress == "on"){
+            $validatedData = $request->validate([
+            'house_number' => 'required'
+            ], 
+                [
+                    'house_number.required'=>'Bạn chưa nhập số nhà này !!!'
+                ]
+            ); 
+            $user->address = $request->house_number." - " .$com->name ." - " .$dis->name ." - " .$pro->name;
+        }
         $user->gender = $request->gender;
-    
+
         $user->save();
         return redirect('client')->with('notify', 'Bạn đã cập nhật thành công!');
     }
-
 }

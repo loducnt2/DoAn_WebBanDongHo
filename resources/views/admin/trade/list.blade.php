@@ -70,12 +70,6 @@
                                             colspan="1" aria-label="Browser: activate to sort column ascending">Tên thương hiệu
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                            colspan="1" aria-label="Browser: activate to sort column ascending">Danh mục
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
-                                            colspan="1" aria-label="Browser: activate to sort column ascending">Địa chỉ
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                             colspan="1" aria-label="Browser: activate to sort column ascending">Thông tin
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
@@ -91,9 +85,7 @@
                                                 <img src='{{ url("upload/trade/$item->avt_trade") }}' width="100px" height="100px" width="50px" height="50px"> 
                                             </td>
                                             <td>{{ $item->name_trade }}</td>
-                                            <td>{{ $item->category->name_cate }}</td>
-                                            <td>{{ $item->address_trade }}</td>
-                                            <td>{{ $item->description_trade }}</td>
+                                            <td>{!! $item->description_trade !!}</td>
                                             <td>
                                                 <a href="{{ url('admin/trade/edit/'.$item->id) }}">Sửa</a>   |  
                                                 <a href="{{ url('admin/trade/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc xóa chứ? Bao gồm các sản phẩm liên quan')">Xóa</a>

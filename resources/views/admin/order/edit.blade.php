@@ -48,19 +48,22 @@
                                     <label>Tên khách hàng</label>
                                     <input class="form-control" name="user" placeholder="Tên khách hàng" value="{{ $order->user->name }}" disabled="">
                                 </div>
-                                <div class="form-group">
-                                    <label>Tên nhân viên giao hàng (*)</label>
-                                    <select class="form-control" name="employee">
-                                        @foreach($emp as $item)
-                                            <option 
-                                            @if($order->idEmployee == $item->id)
-                                                {{"selected"}}
-                                            @endif
-                                                value="{{ $item->id }}">{{ $item->name_emp }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                
+                                @if($order->status_order != 0 && $order->status_order != 3)
+                                    <div class="form-group">
+                                        <label>Tên nhân viên giao hàng (*)</label>
+                                        <select class="form-control" name="employee">
+                                            @foreach($emp as $item)
+                                                <option 
+                                                @if($order->idEmployee == $item->id)
+                                                    {{"selected"}}
+                                                @endif
+                                                    value="{{ $item->id }}">{{ $item->name_emp }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
 
                                 <div class="form-group">
                                     <label>SĐT</label>
@@ -70,43 +73,54 @@
                                     <label>Địa chỉ</label>
                                     <input class="form-control" name="delivery_address" placeholder="Địa chỉ" value="{{ $order->delivery_address }}" disabled="">
                                 </div>
-                                <div class="form-group">
-                                    <label>Ghi chú</label>
-                                    <input class="form-control" name="note_order" placeholder="Ghi chứ" value="{{ $order->note_order }}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Tình trạng</label>
-                                    <label class="radio-inline">
-                                        <input name="status_order" value="0"
-                                        @if($order->status_order == 0)
-                                            {{ "checked" }}
-                                        @endif
-                                        type="radio">Đã hoàn thành
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input name="status_order" value="1" 
-                                        @if($order->status_order == 1)
-                                            {{ "checked" }}
-                                        @endif
-                                          type="radio">Đang xử lý
-                                    </label> 
-                                    <label class="radio-inline">
-                                        <input name="status_order" value="2" 
-                                        @if($order->status_order == 2)
-                                            {{ "checked" }}
-                                        @endif
-                                          type="radio">Đang gửi
-                                    </label> 
-                                    <label class="radio-inline">
-                                        <input name="status_order" value="3" 
-                                        @if($order->status_order == 3)
-                                            {{ "checked" }}
-                                        @endif
-                                          type="radio">Đã hủy
-                                    </label> 
-                                </div>
+                                @if($order->status_order != 0 && $order->status_order != 3)
+                                    <div class="form-group">
+                                        <label>Ghi chú</label>
+                                        <input class="form-control" name="note_order" placeholder="Ghi chứ" value="{{ $order->note_order }}">
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <label>Ghi chú</label>
+                                        <input class="form-control" name="note_order" placeholder="Ghi chứ" value="{{ $order->note_order }}" disabled="">
+                                    </div>
+                                @endif
+                                
 
-                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                @if($order->status_order != 0 && $order->status_order != 3)
+                                    <div class="form-group">
+                                        <label>Tình trạng</label>
+                                        <label class="radio-inline">
+                                            <input name="status_order" value="0"
+                                            @if($order->status_order == 0)
+                                                {{ "checked" }}
+                                            @endif
+                                            type="radio">Đã hoàn thành
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input name="status_order" value="1" 
+                                            @if($order->status_order == 1)
+                                                {{ "checked" }}
+                                            @endif
+                                              type="radio">Đang xử lý
+                                        </label> 
+                                        <label class="radio-inline">
+                                            <input name="status_order" value="2" 
+                                            @if($order->status_order == 2)
+                                                {{ "checked" }}
+                                            @endif
+                                              type="radio">Đang gửi
+                                        </label> 
+                                        <label class="radio-inline">
+                                            <input name="status_order" value="3" 
+                                            @if($order->status_order == 3)
+                                                {{ "checked" }}
+                                            @endif
+                                              type="radio">Đã hủy
+                                        </label> 
+                                    </div>
+                                @endif
+
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                         </div>

@@ -77,6 +77,9 @@
                                             colspan="1" aria-label="Browser: activate to sort column ascending">Thương hiệu
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending">Danh mục
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
                                             colspan="1" aria-label="Browser: activate to sort column ascending">Giá
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
@@ -108,6 +111,7 @@
                                             </td>
                                             <td>{{ $item->name_pro }}</td>
                                             <td>{{ $item->trade->name_trade }}</td>
+                                            <td>{{ $item->category->name_cate }}</td>
                                             <td>{{ $item->price_pro }}</td>
                                             <td>
                                                 @if($item->outstanding == 0)
@@ -117,7 +121,7 @@
                                                     {{ "Có" }}
                                                 @endif
                                             </td>
-                                            <td>{{ $item->discount_pro }}</td>
+                                            <td>{{ $item->discount_pro }}%</td>
                                             <td>{{ $item->quantity_pro }}</td>
                                             <td>
                                                 @if($item->status_pro == 1)

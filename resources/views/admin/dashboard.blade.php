@@ -41,22 +41,28 @@
                 <i class="fa fa-calendar fa-3x"></i><b>&nbsp; {{ number_format($orderCount) }} &nbsp;</b>Tổng số hóa đơn
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="alert alert-warning text-center">
-                <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>&nbsp; {{ number_format($proCount) }} &nbsp;</b>Sản phẩm
+        <a href="{{ url('admin/product/list') }}">
+            <div class="col-lg-3">
+                <div class="alert alert-warning text-center">
+                    <i class="fa  fa-pencil fa-3x"></i>&nbsp;<b>&nbsp; {{ number_format($proCount) }} &nbsp;</b>Sản phẩm
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="alert alert-success text-center">
-                <i class="fa  fa-beer fa-3x"></i><b>&nbsp; {{ number_format($userCount) }} &nbsp;</b>Tài khoản khách hàng
+        </a>
+        <a href="{{ url('admin/user/list') }}">
+            <div class="col-lg-3">
+                <div class="alert alert-success text-center">
+                    <i class="fa  fa-beer fa-3x"></i><b>&nbsp; {{ number_format($userCount) }} &nbsp;</b>Tài khoản
+                </div>
             </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="alert alert-info text-center">
-                <i class="fa fa-rss fa-3x"></i><b>&nbsp; {{ number_format($empCount) }} &nbsp;</b> Nhân viên giao hàng
+        </a>
+        <a href="{{ url('admin/employee/list') }}">
+            <div class="col-lg-3">
+                <div class="alert alert-info text-center">
+                    <i class="fa fa-rss fa-3x"></i><b>&nbsp; {{ number_format($empCount) }} &nbsp;</b> Nhân viên giao hàng
 
+                </div>
             </div>
-        </div>
+        </a>
         <!--end quick info section -->
     </div>
 
@@ -66,8 +72,21 @@
                 <div class="panel-body">
                     <div class="table-responsive">
                         <div class="row">
-                            <div class="col-sm-8"></div>
-                            <div class="col-sm-4 search-admin">
+                            <div class="col-sm-8">
+                                <div class="col-sm-8">
+                                    <div id="dataTables-example_filter" class="dataTables_filter">
+                                        <form action="{{ url('admin/order/filter') }}" method="POST">
+                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                            <label class="lable-search-admin">
+                                                <input type="date" name="date1" class="form-control input-sm" aria-controls="dataTables-example"/>
+                                                <input type="date" name="date2" class="form-control input-sm" aria-controls="dataTables-example"/>
+                                                <input type="submit" value="Lọc" style="width: 80px" />
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-4 search-admin">
                                 <div id="dataTables-example_filter" class="dataTables_filter">
                                     <form action="{{ url('admin/adminpage') }}" method="GET">
                                         <label class="lable-search-admin">
@@ -80,7 +99,7 @@
                                         </label>
                                     </form>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
@@ -148,7 +167,7 @@
                                         <td>
                                             <a href="{{ url('admin/order/detail/'.$item->id) }}">Chi tiết</a>  |  
                                             <a href="{{ url('admin/order/edit/'.$item->id) }}">Sửa</a>   |  
-                                            <a href="{{ url('admin/order/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc xóa chứ?')">Xóa</a>
+                                            <a href="{{ url('admin/order/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc xóa hóa đơn này chứ?')">Xóa</a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -170,30 +189,38 @@
         </div>
 
         <div class="col-lg-3">
-            <div class="panel panel-primary text-center no-boder">
-                <div class="alert alert-warning text-center yellow">
-                    <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
-                    <h3 style="color: black;">&nbsp; {{ number_format($brandCount) }} &nbsp;</h3> <p style="color: black;">Thương hiệu</p>
+            <a href="{{ url('admin/trade/list') }}" style="text-decoration: none;">
+                <div class="panel panel-primary text-center no-boder">
+                    <div class="alert alert-warning text-center yellow">
+                        <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
+                        <h3 style="color: black;">&nbsp; {{ number_format($tradeCount) }} &nbsp;</h3> <p style="color: black;">Thương hiệu</p>
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-primary text-center no-boder">
-                <div class="alert alert-warning text-center blue">
-                    <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
-                    <h3 style="color: black;">&nbsp; {{ number_format($newsletterCount) }} &nbsp;</h3> <p style="color: black;">Người đăng ký nhận tin</p>
+            </a>
+            <a href="{{ url('admin/newsletter/list') }}" style="text-decoration: none;">
+                <div class="panel panel-primary text-center no-boder">
+                    <div class="alert alert-warning text-center blue">
+                        <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
+                        <h3 style="color: black;">&nbsp; {{ number_format($newsletterCount) }} &nbsp;</h3> <p style="color: black;">Người đăng ký nhận tin</p>
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-primary text-center no-boder">
-                <div class="alert alert-warning text-center green">
-                    <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
-                    <h3 style="color: black;">&nbsp; {{ number_format($postCount) }} &nbsp;</h3> <p style="color: black;">Bài viết</p>
+            </a>
+            <a href="{{ url('admin/post/list') }}" style="text-decoration: none;">
+                <div class="panel panel-primary text-center no-boder">
+                    <div class="alert alert-warning text-center green">
+                        <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
+                        <h3 style="color: black;">&nbsp; {{ number_format($postCount) }} &nbsp;</h3> <p style="color: black;">Bài viết</p>
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-primary text-center no-boder">
-                <div class="alert alert-warning text-center red">
-                    <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
-                    <h3 style="color: black;">&nbsp; {{ number_format($contactCount) }} &nbsp;</h3> <p style="color: black;">Phản hồi - Liên hệ</p>
+            </a>
+            <a href="{{ url('admin/contact/list') }}" style="text-decoration: none;">
+                <div class="panel panel-primary text-center no-boder">
+                    <div class="alert alert-warning text-center red">
+                        <i style="color: black;" class="fa fa-bar-chart-o fa-3x"></i>
+                        <h3 style="color: black;">&nbsp; {{ number_format($contactCount) }} &nbsp;</h3> <p style="color: black;">Phản hồi - Liên hệ</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
     </div>

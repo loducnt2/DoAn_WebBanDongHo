@@ -68,16 +68,7 @@ class CategoryController extends Controller
     public function getDelete($id){
     	$cate = Category::find($id);
 
-        
-        $product = Category::find($id)->product()->get();
-        foreach ($product as $value) {
-           $idTra = $value->idTrade;
-        }
-        $order = DB::delete('delete from products where products.idTrade = ' .$idTra);
-
-        /*$order = DB::delete('delete from trademarks where trademarks.idCategory = ' .$id);*/
-        $trade = DB::delete('delete from trademarks where trademarks.idCategory = ' .$id);
-
+        $order = DB::delete('delete from products where products.idCate = '.$id);
     	$cate->delete();
 
 		return redirect('admin/category/list')->with('notifyDelete', 'Bạn đã xóa thành công!');

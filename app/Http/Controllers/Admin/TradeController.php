@@ -26,10 +26,11 @@ class TradeController extends Controller
     }
     public function postCreate(Request $request){
     	$validatedData = $request->validate([
-	        'name_trade' => 'required|min:2|max:255'
+	        'name_trade' => 'required|unique:trademarks|min:2|max:255'
 	    ], 
     		[
     			'name_trade.required'=>'Tên bắt buộc phải nhập !!!',
+                'name_trade.unique'=>'Thương hiệu này đã tồn tại',
     			'name_trade.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
     			'name_trade.max'=>'Tên từ 2 - 100 ký tự nhé !!!'
     		]
@@ -55,21 +56,17 @@ class TradeController extends Controller
 	    	$trade->avt_trade = $newName;
 
 	    }else{
-	    	$trade->avt_trade = "";
+	    	$trade->avt_trade = "no-image.png";
 	    }
-
-    	$trade->address_trade = $request->address_trade;
     	$trade->description_trade = $request->description_trade;
-    	$trade->idCategory = $request->category;
 
     	$trade->save();
     	return redirect('admin/trade/create')->with('notify', 'Thêm mới thành công!');
     }
 
     public function getEdit($id){
-    	$cate = Category::all();
     	$trade = Trademark::find($id);
-    	return view('admin.trade.edit', compact('cate','trade'));
+    	return view('admin.trade.edit', compact('trade'));
     }
     public function postEdit(Request $request, $id){
     	$validatedData = $request->validate([
@@ -102,10 +99,7 @@ class TradeController extends Controller
             //unlink("upload/trade/" .$trade->avt_trade);
 	    	$trade->avt_trade = $newName;
 	    }
-
-    	$trade->address_trade = $request->address_trade;
     	$trade->description_trade = $request->description_trade;
-    	$trade->idCategory = $request->category;
 
     	$trade->save();
     	return redirect('admin/trade/edit/'.$id)->with('notify', 'Bạn đã cập nhật thành công!');
@@ -114,9 +108,9 @@ class TradeController extends Controller
     public function getDelete($id){
     	$trade = Trademark::find($id);
 
-        $order = DB::delete('delete from products where products.idTrade = ' .$id);
-
+        $order = DB::delete('delete from products where products.idTrade = '.$id);
     	$trade->delete();
+        
 		return redirect('admin/trade/list')->with('notifyDelete', 'Bạn đã xóa thành công!');
     }
 }

@@ -76,7 +76,7 @@
                                             <td>{{ $item->name_cate }}</td>
                                             <td>
                                                 <a href="{{ url('admin/category/edit/'.$item->id) }}">Sửa</a>   |  
-                                                <a href="{{ url('admin/category/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc xóa chứ? Bao gồm thương hiệu và các sản phẩm liên quan')">Xóa</a>
+                                                <a href="{{ url('admin/category/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc xóa chứ? Bao gồm các sản phẩm liên quan')">Xóa</a>
                                             </td>
                                         </tr>
                                         @endforeach

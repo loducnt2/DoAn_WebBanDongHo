@@ -88,7 +88,7 @@
                                             </td>
                                             <td>{{ $item->title }}</td>
                                             <!-- <td>{{ $item->summary }}</td> -->
-                                            <td>{{ $item->contents }}</td>
+                                            <td>{!! $item->contents !!}</td>
                                             <td>
                                                 <a href="{{ url('admin/post/edit/'.$item->id) }}">Sửa</a>   |  
                                                 <a href="{{ url('admin/post/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc xóa chứ?')">Xóa</a>

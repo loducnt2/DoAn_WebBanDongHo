@@ -40,18 +40,7 @@
                                     <a href="{{ url('admin/image/create') }}">Thêm mới ảnh cho sản phẩm</a>
                                 </div>
                                 <div class="col-sm-4 search-admin">
-                                    <div id="dataTables-example_filter" class="dataTables_filter">
-                                        <form action="{{ url('admin/image/list') }}" method="GET">
-                                            <label class="lable-search-admin">
-                                                <input type="search" name="keyword" class="form-control input-sm" aria-controls="dataTables-example"
-                                                       @if(Request::has('keyword'))
-                                                       value="{{ Request::get('keyword') }}"
-                                                       @endif
-                                                       placeholder="Tìm kiếm..." />
-                                                <input type="submit" value="Search" style="width: 80px" />
-                                            </label>
-                                        </form>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">

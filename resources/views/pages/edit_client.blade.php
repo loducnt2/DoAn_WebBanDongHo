@@ -10,8 +10,8 @@
     <link href="{{ asset('admin_asset/assets/plugins/bootstrap/bootstrap.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin_asset/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin_asset/assets/plugins/pace/pace-theme-big-counter.css') }}" rel="stylesheet" />
-   <link href="{{ asset('admin_asset/assets/css/style.css') }}" rel="stylesheet" />
-      <link href="{{ asset('admin_asset/assets/css/main-style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin_asset/assets/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin_asset/assets/css/main-style.css') }}" rel="stylesheet" />
 
 </head>
 
@@ -53,7 +53,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
                                     <label>Tên tài khoản</label>
-                                    <input class="form-control" name="name" value="{{ $user_client->name }}" placeholder="Tên tài khoản">
+                                    <input class="form-control" name="name" value="{{ $user_client->name }}" placeholder="Tên tài khoản" disabled="">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
@@ -86,8 +86,40 @@
                                     <input type="number" class="form-control" value="{{ $user_client->phone }}" name="phone" placeholder="Số điện thoại">
                                 </div>
                                 <div class="form-group">
-                                    <label>Địa chỉ</label>
-                                    <input class="form-control" value="{{ $user_client->address }}" name="address" placeholder="Địa chỉ">
+                                    <label>Địa chỉ cũ</label>
+                                    <textarea class="form-control ckeditor" disabled="" id="demo" rows="3" name="description_pro">{{ $user_client->address }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" id="changeAddress" name="changeAddress">
+                                    <label>Thay đổi địa chỉ</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tỉnh/Thành phố</label>
+                                    <select class="form-control province" name="province" id="province" disabled="">
+                                        @foreach($province as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Quận/Huyện</label>
+                                    <select class="form-control district" name="district" id="district" disabled="">
+                                        @foreach($district as $dis)
+                                            <option value="{{ $dis->maqh }}">{{ $dis->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phường/Xã</label>
+                                    <select class="form-control commune" name="commune" id="commune" disabled="">
+                                        @foreach($commune as $comm)
+                                            <option value="{{ $comm->xaid }}">{{ $comm->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tên nhà, tên đường</label>
+                                    <input class="form-control house_number" value="" name="house_number" placeholder="Số nhà, Tên đường" disabled="">
                                 </div>
                                 <div class="form-group">
                                     <label>Giới tính</label>
@@ -133,6 +165,56 @@
                 }else{
                     $(".passwordOpen").attr('disabled', '');  // attr('disabled', '') : Thêm thuộc tính disable và cái '' là : giá trị của nó
                 }
+            });
+
+            $("#changeAddress").change(function(){
+                if($(this).is(":checked")){
+                    $(".province").removeAttr('disabled');
+                    $(".district").removeAttr('disabled');
+                    $(".commune").removeAttr('disabled');
+                    $(".house_number").removeAttr('disabled');
+                }else{
+                    $(".province").attr('disabled', '');
+                    $(".district").attr('disabled', '');
+                    $(".commune").attr('disabled', '');
+                    $(".house_number").attr('disabled', '');
+                }
+            });
+
+            var idProvince = $("#province").val();
+             $.get("thanhpho/"+idProvince, function(data){
+                $("#district").html(data);
+            });
+            var idDistrict = $("#district").val();
+            $.get("huyen/"+idDistrict, function(data){
+                $("#commune").html(data);
+            });
+
+
+            $("#province").change(function(){
+                var idProvince = $(this).val();
+                $.get("thanhpho/"+idProvince, function(data){
+                    $("#district").html(data);
+
+                    var idDistrict = $("#district").val();
+                    //alert(idDistrict);
+                    $.get("huyen/"+idDistrict, function(data){
+                        $("#commune").html(data);
+                    });
+                    $("#district").change(function(){
+                        var idDistrict = $(this).val();
+                        //alert(idDistrict);
+                        $.get("huyen/"+idDistrict, function(data){
+                            $("#commune").html(data);
+                        });
+                    });
+                });
+            });    
+            $("#district").change(function(){
+                var idDistrict = $(this).val();
+                $.get("huyen/"+idDistrict, function(data){
+                    $("#commune").html(data);
+                });
             });
 
     </script>

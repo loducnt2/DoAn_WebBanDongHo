@@ -10,12 +10,7 @@ use App\Product;
 class ImageController extends Controller
 {
     public function getList(Request $request){
-    	if ($request->has('keyword')){
-            $keyword = $request->get('keyword');
-            $image = Image::where('images.idProduct', 'like' , '%' . $keyword . '%')->paginate(15);
-        }else{
-           $image = Image::paginate(10);
-        }
+        $image = Image::paginate(10);
     	return view('admin.image.list', ['image' => $image]);
     }
 
@@ -89,7 +84,7 @@ class ImageController extends Controller
 	    		$newName = str_random(5)."_".$name;
 	    	}
 	    	$fileAnh->move("upload/image", $newName);
-            unlink("upload/image/". $img->img);
+            //unlink("upload/image/". $img->img);
 	    	$img->img = $newName;
 	    }
     

@@ -12,7 +12,11 @@
                         <img src="{{ url('upload/user/'.Auth::user()->avatar) }}" alt="">
                     </div>
                     <div class="user-info">
-                        <div><strong>{{ Auth::user()->name  }}</strong></div>
+                        <div>
+                            <strong>
+                                <a href="{{ url('admin/user/edit/'.Auth::user()->id) }}" style="text-decoration: none;">{{ Auth::user()->name  }}</a>
+                            </strong>
+                        </div>
                         <div class="user-text-online">
                             <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp; Online
                         </div>

@@ -132,8 +132,6 @@
             /*
             1. Gán ID cho trường theloai va loaitin
             */
-
-
             var idCategory = $("#category").val();
             $.get("trade/"+idCategory, function(data){
                 $("#trade").html(data);

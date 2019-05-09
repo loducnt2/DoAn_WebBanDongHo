@@ -44,7 +44,9 @@
 			<!-- Description -->
 			<div class="col-lg-5 order-3">
 				<div class="product_description">
-					<div class="product_category">{{ $pro_pro->trade->name_trade }}</div>
+					<div class="product_category">
+						<a href='{{ url("shop/$trade_id") }}'>{{ $pro_pro->trade->name_trade }}</a>
+					</div>
 					<div class="product_name">{{ $pro_pro->name_pro }}</div>
 					<div class="rating_r rating_r_4 product_rating">
 						<!-- <i></i><i></i><i></i><i></i><i></i> -->
@@ -92,8 +94,8 @@
                             ?>
 							<div class="product_price">{{ number_format($totalAmount) }} VNĐ</div>
 								<span style="text-decoration: line-through;">{{ number_format($pro_pro->price_pro) }} VNĐ</span>
-
 							<div class="button_container">
+								<p><span>{{ $pro_pro->quantity_pro }}</span> Sản phẩm sẵn có</p>
 								<button type="button" class="button cart_button">
 									<a href="{{ url('cart/add/'. $pro_pro->id ) }}">Thêm vào giỏ hàng</a>
 								</button>
@@ -111,6 +113,10 @@
 		</div> -->
 	</div>
 	
+	<div class="container" style="margin-top: 50px;">
+		<h4>Giới thiệu thương hiệu</h4>
+		<p>{!! $pro_pro->trade->description_trade !!}</p>
+	</div>
 
 	<div class="container" style="margin-top: 50px;">
 		<h4>Bình luận sản phẩm</h4>
@@ -173,6 +179,7 @@
 						            <div class="cud_media-body">
 						                <div>
 						                	<div>
+						                		<h4>{{ $itemList->user->name }}</h4>
 							                	<h4 class="cud_media-heading">
 								                    <small>{{ $itemList->created_at }}</small>
 								                </h4>
@@ -203,14 +210,71 @@
 </div>
 
 <!-- Recently Viewed -->
+<div class="viewed">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="viewed_title_container">
+					<h3 class="viewed_title">Các sản phẩm cùng khoảng giá</h3>
+					<div class="viewed_nav_container">
+						<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
+						<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
+					</div>
+				</div>
 
+				<div class="viewed_slider_container">
+					
+					<!-- Recently Viewed Slider -->
+
+					<div class="owl-carousel owl-theme viewed_slider">
+						
+						<!-- Recently Viewed Item -->
+					
+
+					@if(isset($same_price_pro))
+						@foreach($same_price_pro as $item)
+						<div class="owl-item">
+							<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+								<div class="viewed_image">
+									<a href='{{ url("product/$item->id") }}'>
+										<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" alt="">
+									</a>
+								</div>
+								<?php 
+	                                $totalAmount1 = 0; 
+	                                $Newdiscount1 = (100-$item->discount_pro)/100;
+	                                $totalAmount1 += ($item->price_pro*$Newdiscount1);
+	                            ?>
+								<div class="viewed_content text-center">
+									<div class="viewed_price">{{ number_format($totalAmount1) }} VNĐ
+										<span>{{ number_format($item->price_pro) }} VNĐ</span>
+									</div>
+									<div class="viewed_name"><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div>
+								</div>
+								<ul class="item_marks">
+									<li class="item_mark item_discount">- {{ $item->discount_pro }} %</li>
+									<li class="item_mark item_new">new</li>
+								</ul>
+							</div>
+						</div>
+						@endforeach
+					@endif
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Recently Viewed -->
 <div class="viewed">
 	<div class="container">
 		
 		<div class="row">
 			<div class="col">
 				<div class="viewed_title_container">
-					<h3 class="viewed_title">Các sản phẩm liên quan</h3>
+					<h3 class="viewed_title">Các sản phẩm cùng thương hiệu</h3>
 					<div class="viewed_nav_container">
 						<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 						<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>

@@ -27,7 +27,9 @@ class CommentController extends Controller
     public function getDelete($id, $idPro){
         $con = Comment::find($id);
 
+        $order = DB::delete('delete from listcomments where listcomments.idComment = '.$id);
         $con->delete();
+        
         return redirect('admin/product/edit/' .$idPro)->with('notifyDelete', 'Bạn đã xóa bình luận thành công!');
     }
 }

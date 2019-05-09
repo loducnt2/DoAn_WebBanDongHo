@@ -25,38 +25,43 @@
 						<p>Đơn hàng thứ: {{ $key+1 }}</p>
 					@endforeach -->
 				
+					
+					
+					<?php $dem=0; ?>
+					@foreach($orders as $item)
+						<?php $dem++; ?>
 					<div class="cart_container">
-						<div class="cart_title">Đơn hàng gồm: </div>
+						<div class="cart_title" style="font-family: arial; font-weight: bold;  font-size: 22px;">Đơn hàng <?php echo $dem; ?> gồm: </div>
 						<div class="cart_items">
 							<ul class="cart_list">
 
-							@foreach($detail as $item)
+							@foreach($item->orderdetail as $detail)
 								<li class="cart_item clearfix">
 									<div class="cart_item_image">
-										<?php $anh = $item->product->thumbnail_pro ?>
+										<?php $anh = $detail->product->thumbnail_pro ?>
 										<img src='{{ url("upload/product/$anh") }}' width="100px" height="100px" width="50px" height="50px">
 									</div>
 									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Tên sản phẩm</div>
-											<div class="cart_item_text">{{ $item->product->name_pro }}</div>
+											<div class="cart_item_text">{{ $detail->product->name_pro }}</div>
 										</div>
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Số lượng</div>
 											<div class="cart_item_text">
-												{{ $item->product->quantity_pro }}
+												{{ $detail->product->quantity_pro }}
 											</div>
 										</div>
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Đơn giá</div>
 											<div class="cart_item_text">
-												{{ $item->price }}
+												{{ $detail->price }}
 											</div>
 										</div>
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Khuyến mại</div>
 											<div class="cart_item_text">
-												{{ $item->discount }}
+												{{ $detail->discount }}%
 											</div>
 										</div>
 										<div class="cart_item_quantity cart_info_col">
@@ -66,8 +71,8 @@
 						                            $totalAmount = 0; 
 						                        ?>
 						                            <?php 
-						                                $Newdiscount = (100-$item->discount)/100;
-						                                $totalAmount += ($item->quantity*$item->price*$Newdiscount);
+						                                $Newdiscount = (100-$detail->discount)/100;
+						                                $totalAmount += ($detail->quantity*$detail->price*$Newdiscount);
 						                             ?>
 					                            {{ number_format($totalAmount) }}
 											</div>
@@ -77,19 +82,13 @@
 								</li>
 							@endforeach
 							</ul>
-
 						</div>
 					</div>
-					
-					<?php $dem=0; ?>
-					@foreach($orders as $item)
-						<?php $dem++; ?>
-					<div class="cart_container" style="margin-top: 50px;">
-						<div class="cart_title">Cập nhật hóa đơn:</div>
-						<div class="cart_items" style="margin-top: 10px;">
+
+					<div class="cart_container" style="margin-bottom: 50px;">
+						<div class="cart_title" style="font-family: arial; font-weight: bold; font-size: 20px;">Cập nhật hóa đơn: <?php echo $dem; ?> </div>
+						<div class="cart_items" style="margin-top: 10px !important;">
 							<ul class="cart_list">
-
-
 								<li class="cart_item clearfix">
 									<div class="cart_item_image">
 									</div>
@@ -101,16 +100,6 @@
 										<div class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Tổng tiền</div>
 											<div class="cart_item_text">
-						<!-- <?php 
-                            $totalAmount = 0; 
-                        ?>
-                        @foreach($item->orderdetail as $dItem)
-                            <?php 
-                                $Newdiscount = (100-$dItem->product->discount_pro)/100;
-                                $totalAmount += ($dItem->quantity*$dItem->product->price_pro*$Newdiscount);
-                             ?>
-                             {{ number_format($totalAmount) }}
-                        @endforeach -->
                                                 {{ number_format($item->total) }}
 											</div>
 										</div>
@@ -131,19 +120,24 @@
                                                 @endif
 											</div>
 										</div>
+										<div class="cart_item_name cart_info_col">
+											<div class="cart_item_title">Ngày đặt</div>
+											<div class="cart_item_text">{{ $item->created_at }}</div>
+										</div>
 									</div>
 								</li>
 							
 							</ul>
 						</div>
 						
+						@if($item->status_order == 1)
 						<div class="cart_buttons">
-						<form action="{{ url('cart/order/'.$item->id ) }}" method="POST">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<button type="submit" onclick="return confirm('Bạn chắc chắn muốn hủy đơn hàng này chứ?')" class="btn btn-primary">Hủy đơn hàng</button>
-						</form>
-							
+							<form action="{{ url('cart/order/'.$item->id ) }}" method="POST">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<button type="submit" onclick="return confirm('Bạn chắc chắn muốn hủy đơn hàng này chứ?')" class="btn btn-primary" style="cursor: pointer;">Hủy đơn hàng</button>
+							</form>
 						</div>
+						@endif
 					</div>
 					@endforeach
 

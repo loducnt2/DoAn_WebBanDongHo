@@ -59,7 +59,7 @@
                                     <select class="form-control" name="category" id="category">
                                         @foreach($cate as $item)
                                             <option 
-                                            @if($product->trade->category->id == $item->id)
+                                            @if($product->idCate == $item->id)
                                                 {{ "selected" }}
                                             @endif
                                             value="{{ $item->id }}">{{ $item->name_cate }}
@@ -72,7 +72,7 @@
                                     <select class="form-control" name="trade" id="trade">
                                         @foreach($trade as $item)
                                             <option 
-                                            @if($product->trade->id == $item->id)
+                                            @if($product->idTrade == $item->id)
                                                 {{ "selected" }}
                                             @endif
                                             value="{{ $item->id }}">{{ $item->name_trade }}
@@ -101,7 +101,7 @@
                                 <div class="form-group">
                                     <label>Tình trạng (*)</label>
                                     <label class="radio-inline">
-                                        <input name="status_pro" value="1"
+                                        <input name="status_pro" checked="true" value="1"
                                         @if($product->status_pro == 1)
                                             {{ "checked" }}
                                         @endif

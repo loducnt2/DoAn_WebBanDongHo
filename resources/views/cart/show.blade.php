@@ -17,7 +17,7 @@
 
 				
 					<div class="cart_container">
-						<div class="cart_title">Giỏ hàng</div>
+						<div class="cart_title" style="font-family: arial; font-weight: bold;">Giỏ hàng</div>
 					
 					<?php $totalAmount = 0; ?>
 					@foreach(Cart::content() as $item)
@@ -28,7 +28,9 @@
 							
 								<li class="cart_item clearfix">
 									<div class="cart_item_image">
+										<a href='{{ url("product/$item->id") }}'>
 										 <img src='{{ url("upload/product/" .$item->options->thumbnail_pro) }}' width="100px" height="100px" width="50px" height="50px"> 
+										 </a>
 									</div>
 									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div class="cart_item_name cart_info_col">
@@ -42,13 +44,13 @@
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Số lượng</div>
 											<div class="cart_item_text">
-												<input class="txtSoluong" name="SoLuongMoi" type="number" style="width: 70px;" value="{{ $item->qty }}" name="">
+												<input class="txtSoluong" name="SoLuongMoi" type="number" style="width: 70px;" value="{{ $item->qty }}">
 												<input type="hidden" name="IdCart" value="{{ $item->rowId }}"> 
 											</div>
 										</div>
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Khuyến mại</div>
-											<div class="cart_item_text">{{ number_format($item->options->discount_pro) }}</div>
+											<div class="cart_item_text">{{ number_format($item->options->discount_pro) }}%</div>
 										</div>
 										<div class="cart_item_price cart_info_col">
 											<div class="cart_item_title">Giá</div>
@@ -80,9 +82,9 @@
 									</div>
 								</li>
 							
-
 							</ul>
 						</div>
+					</form>
 					@endforeach
 						<!-- Order Total -->
 						<div class="order_total">
@@ -106,12 +108,12 @@
 							<a href="{{ url('cart/destroy') }}">
 								<button type="button" class="button cart_button_clear" style="background: #fff3cd; color: black;" action="">Xóa hết</button>
 							</a>
-							<a href="{{ url('cart/checkout') }}">
+							<a href="{{ url('checkout') }}">
 								<button type="button" class="button cart_button_checkout">Tiếp tục</button>
 							</a>
 						</div>
 					</div>
-				</form>
+				
 				</div>
 			</div>
 		</div>

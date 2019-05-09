@@ -51,12 +51,7 @@ class UserController extends Controller
 
         if ($request->has('keyword')){
             $keyword = $request->get('keyword');
-            /*$user = DB::table('users')
-                    ->where('users.name', 'like' , '%' . $keyword . '%')
-                    ->orWhere('users.email', 'like' , '%' . $keyword . '%')
-                    ->paginate(15);*/
-            $user = User::where('users.name', 'like' , '%' . $keyword . '%')->paginate(15);
-            $user = User::where('users.email', 'like' , '%' . $keyword . '%')->paginate(15);
+            $user = User::where('name', 'like' , '%' . $keyword . '%')->orWhere('email', 'like' , '%' . $keyword . '%')->paginate(15);
         }else{
            $user = User::paginate(15);
         }
@@ -143,24 +138,11 @@ class UserController extends Controller
     }
     public function postEdit(Request $request, $id){
     	$validatedData = $request->validate([
-	        'name' => 'required|min:2|unique:users',
-	        'last_name' => 'required|min:2',
-	        'first_name' => 'required|min:2',
 	        'phone' => 'required|regex:/^(0)[0-9]{9}$/',
 	        'address' => 'required|min:2',
 	        'avatar' => 'unique:users',
 	    ], 
     		[
-    			'name.required'=>'Tên đămg nhập bắt buộc phải nhập !!!',
-    			'name.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
-    			'name.unique'=> 'Tên này đã có người sử dụng, mời bạn chọn tên mới!',
-
-    			'last_name.required'=>'Bạn chưa nhập họ !!!',
-    			'last_name.min'=>'Họ tên từ 2 ký tự trở lên !!!',
-
-    			'first_name.required'=>'Bạn chưa nhập tên !!!',
-    			'first_name.min'=>'Họ tên từ 2 ký tự trở lên !!!',
-
     			'phone.required'=>'Bạn chưa nhập số điện thoại !!!',
     			'phone.regex'=>'SĐT không đúng định dạng !!!',
 
@@ -172,8 +154,7 @@ class UserController extends Controller
 	    );
 
 	    $user = User::find($id);
-    	$user->id = $request->id;
-    	$user->name = $request->name;
+
     	if($request->hasFile("avatar")){
 	    	$fileAnh = $request->File("avatar");
 
@@ -187,9 +168,7 @@ class UserController extends Controller
 	    	while(file_exists("upload/user".$newName)){
 	    		$newName = str_random(5)."_".$name;
 	    	}
-
 	    	$fileAnh->move("upload/user", $newName);
-            //unlink("upload/user/" .$user->avatar);
 	    	$user->avatar = $newName;
 	    }
 
@@ -214,8 +193,11 @@ class UserController extends Controller
     	$user->first_name = $request->first_name;
     	$user->phone = $request->phone;
     	$user->address = $request->address;
-    	$user->idTypeUser = $request->typeuser;
     	$user->gender = $request->gender;
+
+        if(Auth::user()->idTypeUser == 1){
+            $user->idTypeUser = $request->typeuser;
+        }
     
     	$user->save();
     	return redirect('admin/user/edit/'.$id)->with('notify', 'Cập nhật thành công!');

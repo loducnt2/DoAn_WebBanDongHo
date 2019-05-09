@@ -55,7 +55,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 search-admin">
+                                <!-- <div class="col-sm-4 search-admin">
                                     <div id="dataTables-example_filter" class="dataTables_filter">
                                         <form action="{{ url('admin/order/list') }}" method="GET">
                                             <label class="lable-search-admin">
@@ -67,6 +67,20 @@
                                                 <input type="submit" value="Tìm kiếm" style="width: 80px" />
                                             </label>
                                         </form>
+                                    </div>
+                                </div> -->
+                                <div class="col-sm-4 search-admin" style="display: flex;">
+                                    <div id="dataTables-example_filter" class="dataTables_filter" style="margin-right: 10px;">
+                                        <a href="{{ url('admin/order/order_finish') }}"><button style="width: 80px">Thành công</button></a>
+                                    </div>
+                                    <div id="dataTables-example_filter" class="dataTables_filter" style="margin-right: 10px;">
+                                        <a href="{{ url('admin/order/order_processing') }}"><button style="width: 80px">Đang xử lý</button></a>
+                                    </div>
+                                    <div id="dataTables-example_filter" class="dataTables_filter" style="margin-right: 10px;">
+                                        <a href="{{ url('admin/order/order_sending') }}"><button style="width: 80px">HĐ Đang giao</button></a>
+                                    </div>
+                                    <div id="dataTables-example_filter" class="dataTables_filter" style="margin-right: 10px;">
+                                        <a href="{{ url('admin/order/order_cancel') }}"><button style="width: 80px">HĐ Đã hủy</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +162,7 @@
                                             <td>
                                                 <a href="{{ url('admin/order/detail/'.$item->id) }}">Chi tiết</a>  |  
                                                 <a href="{{ url('admin/order/edit/'.$item->id) }}">Sửa</a>   |  
-                                                <a href="{{ url('admin/order/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc xóa chứ?')">Xóa</a>
+                                                <a href="{{ url('admin/order/delete/'.$item->id) }}" onclick="return confirm('Bạn chắc muốn xóa hóa đơn này chứ?')">Xóa</a>
                                             </td>
                                         </tr>
                                         @endforeach

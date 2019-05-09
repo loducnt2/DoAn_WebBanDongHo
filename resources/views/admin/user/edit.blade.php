@@ -52,20 +52,22 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
                                     <label>Tên tài khoản</label>
-                                    <input class="form-control" name="name" value="{{ $user->name }}" placeholder="Tên tài khoản">
+                                    <input class="form-control" name="name" value="{{ $user->name }}" placeholder="Tên tài khoản" disabled="">
                                 </div>
-                                <div class="form-group">
-                                    <label>Loại tài khoản</label>
-                                    <select class="form-control" name="typeuser">
-                                        @foreach($type as $item)
-                                            <option 
-                                                @if($user->idTypeUser == $item->id)
-                                                    {{"selected"}}
-                                                @endif 
-                                                value="{{ $item->id }}">{{ $item->name_type }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @if(Auth::user()->idTypeUser == 1)
+                                    <div class="form-group">
+                                        <label>Loại tài khoản</label>
+                                        <select class="form-control" name="typeuser">
+                                            @foreach($type as $item)
+                                                <option 
+                                                    @if($user->idTypeUser == $item->id)
+                                                        {{"selected"}}
+                                                    @endif 
+                                                    value="{{ $item->id }}">{{ $item->name_type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
                                 <div class="form-group">
                                     <input type="checkbox" id="changePassword" name="changePassword">
                                     <label>Đổi mật khẩu</label>
@@ -114,7 +116,7 @@
                                     </label> 
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Lưu lại</button>
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
                                 <button type="reset" class="btn btn-success">Làm mới</button>
                             </form>
                         </div>

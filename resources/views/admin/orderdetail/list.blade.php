@@ -60,7 +60,7 @@
                                             <td>{{ $item->product->name_pro }}</td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->price }}</td>
-                                            <td>{{ $item->discount }}</td>
+                                            <td>{{ $item->discount }}%</td>
                                             <td>
                                                 <?php 
                                                     $totalAmount = 0; 

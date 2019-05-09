@@ -15,9 +15,11 @@ class ProductController extends Controller
     public function getList(Request $request){
         if ($request->has('keyword')){
             $keyword = $request->get('keyword');
-            $product = Product::where('products.name_pro', 'like' , '%' . $keyword . '%')->paginate(15);
+            $product = Product::where('products.name_pro', 'like' , '%' . $keyword . '%')
+                 ->orderBy('id','DESC')
+                ->paginate(10);
         }else{
-            $product = Product::paginate(10);
+            $product = Product::orderBy('id','DESC')->paginate(10);
         }
         return view('admin.product.list', ['product' => $product]);
     }
@@ -30,13 +32,14 @@ class ProductController extends Controller
     }
     public function postCreate(Request $request){
     	$validatedData = $request->validate([
-	        'name_pro' => 'required|min:2',
+	        'name_pro' => 'required|min:2|unique:products',
 	        'price_pro' => 'required',
             'quantity_pro' => 'required',
             'discount_pro' => 'required'
 	    ], 
     		[
     			'name_pro.required'=>'Tên sản phẩm bắt buộc phải nhập !!!',
+                'name_pro.unique'=>'Tên sản phẩm này đã tồn tại',
     			'name_pro.min'=>'Tên từ 2 - 100 ký tự nhé !!!',
                 
     			'price_pro.required'=>'Bạn chưa nhập giá !!!',
@@ -75,6 +78,7 @@ class ProductController extends Controller
         $pro->outstanding = $request->outstanding;
         $pro->description_pro = $request->description_pro;
         $pro->idTrade = $request->trade;
+        $pro->idCate = $request->category;
     
     	$pro->save();
     	return redirect('admin/product/create')->with('notify', 'Thêm mới thành công!');
@@ -140,6 +144,7 @@ class ProductController extends Controller
         $pro->outstanding = $request->outstanding;
         $pro->description_pro = $request->description_pro;
         $pro->idTrade = $request->trade;
+        $pro->idCate = $request->category;
     
         $pro->save();
     	return redirect('admin/product/edit/'.$id)->with('notify', 'Cập nhật thành công!');

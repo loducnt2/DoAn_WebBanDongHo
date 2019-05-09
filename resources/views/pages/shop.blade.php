@@ -30,21 +30,18 @@
 
 					<!-- Shop Sidebar -->
 					<div class="shop_sidebar">
+						<!-- day nhe - phan in ra DS các thương hiệu của từng DM -->
+
+						<!-- phan in ra danh sach các thương hiệu -->
 						<div class="sidebar_section">
-							<div class="sidebar_title">Danh mục sản phẩm</div>
+							<div class="sidebar_title">Danh mục thương hiệu</div>
 							<ul class="sidebar_categories">
-							@foreach($cate as $item)
-								@if(count($item->trade) > 0)
-								<li style="padding-top: 30px;"><a href="#">{{ $item->name_cate }}</a></li>
-								<ul>
-			                        @foreach($item->trade as $tra)
-		                    		<li class="list-group-item">
-			     						<a href='{{ url("shop/$tra->id") }}'>{{ $tra->name_trade }}</a>
-		                    		</li>
-			                        @endforeach 
-			                    </ul>
-								@endif
-			                @endforeach
+								@foreach($trade as $item)
+									@if(count($item->product) > 0)
+										<li style="padding-top: 10px;"><a href='{{ url("shop/$item->id") }}'>{{ $item->name_trade }}</a></li>
+										<!-- day nha -->
+									@endif
+				                @endforeach
 							</ul>
 						</div>
 						<!-- <div class="sidebar_section filter_by_section">
@@ -166,7 +163,6 @@
 	</div>
 
 	<!-- Recently Viewed -->
-
 	<div class="viewed">
 		<div class="container">
 			<div class="row">
@@ -186,7 +182,7 @@
 						<div class="owl-carousel owl-theme viewed_slider">
 							
 							<!-- Recently Viewed Item -->
-						@foreach($pro_relative_shop as $item)
+						@foreach($product_Noibat as $item)
 							<div class="owl-item">
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
 									<div class="viewed_image">
@@ -222,7 +218,6 @@
 	</div>
 
 	<!-- Brands -->
-
 	<div class="brands">
 		<div class="container">
 			<div class="row">

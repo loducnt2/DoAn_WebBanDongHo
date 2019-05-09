@@ -11,6 +11,9 @@ class Product extends Model
     public function trade(){
     	return $this->belongsTo('App\Trademark', 'idTrade', 'id');
     }
+    public function category(){
+        return $this->belongsTo('App\Category', 'idCate', 'id');
+    }
 
     public function image(){
     	return $this->hasMany('App\Image', 'idProduct', 'id');

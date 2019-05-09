@@ -75,7 +75,9 @@
 								</div>
 								<div class="deals_content">
 									<div class="deals_info_line d-flex flex-row justify-content-start">
-										<div class="deals_item_category"><a href="#">{{ $item->trade->name_trade }}</a></div>
+										<div class="deals_item_category">
+											<a href='{{ url("shop/$item->idTrade") }}'>{{ $item->trade->name_trade }}</a>
+										</div>
 										<div class="deals_item_price_a ml-auto" style="text-decoration: line-through;">{{ $item->price_pro }}</div>
 									</div>
 									<div class="deals_info_line d-flex flex-row justify-content-start">
@@ -368,7 +370,9 @@
 						<div class="row fill_height">
 							<div class="col-lg-4 col-md-6 fill_height">
 								<div class="banner_2_content">
-									<div class="banner_2_category">{{ $item->trade->name_trade }}</div>
+									<div class="banner_2_category">
+										<a href='{{ url("shop/$item->idTrade") }}'>{{ $item->trade->name_trade }}</a>
+									</div>
 									<div class="banner_2_title">{{ $item->name_pro }}</div>
 									<div class="banner_2_text">Sản phẩm mới nhất của hệ thống</div>
 									<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
@@ -408,7 +412,6 @@
 							<li class="active">Epos Swiss</li>
 							<li>Atlantic Atlantic Swiss</li>
 							<li>Diamond D </li>
-							<li> TEST </li>
 						</ul>
 						<div class="tabs_line"><span></span></div>
 					</div>
@@ -434,7 +437,7 @@
 		                                $totalAmount += ($item->price_pro*$Newdiscount);
 		                            ?>
 												<div class="product_price">{{ number_format($totalAmount) }} VNĐ</div>
-												<div class="product_name"><div><a href="product.html">{{ $item->name_pro }}</a></div></div>
+												<div class="product_name"><div><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
@@ -446,7 +449,6 @@
 													</button>
 												</div>
 											</div>
-											<!-- <div class="product_fav"><i class="fas fa-heart"></i></div> -->
 											<ul class="product_marks">
 												<li class="product_mark product_discount"></li>
 												<li class="product_mark product_new">-{{ $item->discount_pro }}%</li>
@@ -480,7 +482,7 @@
 												<div class="product_price">
 													{{ number_format($totalAmount) }} VNĐ
 												</div>
-												<div class="product_name"><div><a href="product.html">{{ $item->name_pro }}</a></div></div>
+												<div class="product_name"><div><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
@@ -492,7 +494,6 @@
 													</button>
 												</div>
 											</div>
-											<!-- <div class="product_fav"><i class="fas fa-heart"></i></div> -->
 											<ul class="product_marks">
 												<li class="product_mark product_discount"></li>
 												<li class="product_mark product_new">-{{ $item->discount_pro }}%</li>
@@ -527,7 +528,7 @@
 												<div class="product_price">
 													{{ number_format($totalAmount) }} VNĐ
 												</div>
-												<div class="product_name"><div><a href="product.html">{{ $item->name_pro }}</a></div></div>
+												<div class="product_name"><div><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div></div>
 												<div class="product_extras">
 													<div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
@@ -539,7 +540,6 @@
 													</button>
 												</div>
 											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
 											<ul class="product_marks">
 												<li class="product_mark product_discount"></li>
 												<li class="product_mark product_new">-{{ $item->discount_pro }}%</li>
@@ -548,50 +548,6 @@
 									</div>
 								@endforeach
 
-									
-								</div>
-								<div class="arrivals_slider_dots_cover"></div>
-							</div>
-
-							<!-- Product Panel -->
-							<div class="product_panel panel active">
-								<div class="arrivals_slider slider">
-
-									<!-- Slider Item -->
-								@foreach($trade_1 as $item)
-									<div class="arrivals_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center">
-												<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" style="height: 110px; width: 30%;" alt="">
-											</div>
-											<div class="product_content">
-									<?php 
-		                                $totalAmount = 0; 
-		                                $Newdiscount = (100-$item->discount_pro)/100;
-		                                $totalAmount += ($item->price_pro*$Newdiscount);
-		                            ?>
-												<div class="product_price">{{ number_format($totalAmount) }} VNĐ</div>
-												<div class="product_name"><div><a href="product.html">{{ $item->name_pro }}</a></div></div>
-												<div class="product_extras">
-													<div class="product_color">
-														<input type="radio" checked name="product_color" style="background:#b19c83">
-														<input type="radio" name="product_color" style="background:#000000">
-														<input type="radio" name="product_color" style="background:#999999">
-													</div>
-													<button class="product_cart_button">
-														<a href='{{ url("product/$item->id") }}' style="color: white;">Chi tiết</a>
-													</button>
-												</div>
-											</div>
-											<!-- <div class="product_fav"><i class="fas fa-heart"></i></div> -->
-											<ul class="product_marks">
-												<li class="product_mark product_discount"></li>
-												<li class="product_mark product_new">-{{ $item->discount_pro }}%</li>
-											</ul>
-										</div>
-									</div>
-								@endforeach
 									
 								</div>
 								<div class="arrivals_slider_dots_cover"></div>
@@ -630,154 +586,8 @@
 
 <!-- Best Sellers -->
 
-<div class="best_sellers">
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<div class="tabbed_container">
+<!--   day nhé  -->
 
-				
-					<div class="tabs clearfix tabs-right">
-						<div class="new_arrivals_title">Các sản phẩm</div>
-						<ul class="clearfix">
-						@foreach($cate_home as $item)
-							<!-- <li class="active">Đồng hồ nam</li> -->
-							<li>{{ $item->name_cate }}</li>
-						@endforeach	
-						</ul>
-						<div class="tabs_line"><span></span></div>
-					</div>
-				
-					<div class="bestsellers_panel panel active">
-
-						<!-- Best Sellers Slider -->
-						<div class="bestsellers_slider slider">
-
-					<!-- Đồng hồ nam - id = 1 -->
-						@foreach($product_1 as $item)
-							<!-- Best Sellers Item -->
-							<div class="bestsellers_item discount">
-								<div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-									<div class="bestsellers_image">
-										<a href='{{ url("product/$item->id") }}'>
-											<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" alt="">
-										</a>
-									</div>
-									<?php 
-		                                $totalAmount1 = 0; 
-		                                $Newdiscount1 = (100-$item->discount_pro)/100;
-		                                $totalAmount1 += ($item->price_pro*$Newdiscount1);
-		                            ?>
-									<div class="bestsellers_content">
-										<div class="bestsellers_category">{{ $item->trade->name_trade }}</div>
-										<div class="bestsellers_name"><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div>
-										<div class="rating_r rating_r_4 bestsellers_rating">
-										<!-- <i></i><i></i><i></i><i></i><i></i> -->
-										</div>
-										<div class="bestsellers_price discount">
-											{{ number_format($totalAmount1) }} VNĐ
-										<span>{{ number_format($item->price_pro) }} VNĐ</span></div>
-									</div>
-								</div>
-								<!-- <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div> -->
-								<ul class="bestsellers_marks">
-									<li class="bestsellers_mark bestsellers_discount">-{{ $item->discount_pro }}%</li>
-									<li class="bestsellers_mark bestsellers_new">new</li>
-								</ul>
-							</div>
-						@endforeach
-
-						</div>
-					</div>
-
-					<div class="bestsellers_panel panel">
-
-						<!-- Best Sellers Slider -->
-						<div class="bestsellers_slider slider">
-						
-						<!-- Đồng hồ nữ - id = 3 -->
-						@foreach($product_3 as $item)
-							<!-- Best Sellers Item -->
-							<div class="bestsellers_item discount">
-								<div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-									<div class="bestsellers_image">
-										<a href='{{ url("product/$item->id") }}'>
-											<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" alt="">
-										</a>
-									</div>
-									<?php 
-		                                $totalAmount1 = 0; 
-		                                $Newdiscount1 = (100-$item->discount_pro)/100;
-		                                $totalAmount1 += ($item->price_pro*$Newdiscount1);
-		                            ?>
-									<div class="bestsellers_content">
-										<div class="bestsellers_category">{{ $item->trade->name_trade }}</div>
-										<div class="bestsellers_name"><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div>
-										<div class="rating_r rating_r_4 bestsellers_rating"><i></i><i></i><i></i><i></i><i></i></div>
-										<div class="bestsellers_price discount">
-											{{ number_format($totalAmount1) }} VNĐ
-										<span>{{ number_format($item->price_pro) }} VNĐ</span></div>
-									</div>
-								</div>
-								<!-- <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div> -->
-								<ul class="bestsellers_marks">
-									<li class="bestsellers_mark bestsellers_discount">-{{ $item->discount_pro }}%</li>
-									<li class="bestsellers_mark bestsellers_new">new</li>
-								</ul>
-							</div>
-						@endforeach
-							
-
-						</div>
-					</div>
-
-					<div class="bestsellers_panel panel">
-
-						<!-- Best Sellers Slider -->
-						<div class="bestsellers_slider slider">
-						
-						<!-- Đồng hồ đôi - id = 4 -->
-						@foreach($product_4 as $item)
-							<!-- Best Sellers Item -->
-							<div class="bestsellers_item discount">
-								<div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-									<div class="bestsellers_image">
-										<a href='{{ url("product/$item->id") }}'>
-											<img src="{{ url('upload/product/' .$item->thumbnail_pro) }}" alt="">
-										</a>
-									</div>
-									<?php 
-		                                $totalAmount1 = 0; 
-		                                $Newdiscount1 = (100-$item->discount_pro)/100;
-		                                $totalAmount1 += ($item->price_pro*$Newdiscount1);
-		                            ?>
-									<div class="bestsellers_content">
-										<div class="bestsellers_category">{{ $item->trade->name_trade }}</div>
-										<div class="bestsellers_name"><a href='{{ url("product/$item->id") }}'>{{ $item->name_pro }}</a></div>
-										<div class="rating_r rating_r_4 bestsellers_rating"><i></i><i></i><i></i><i></i><i></i></div>
-										<div class="bestsellers_price discount">
-											{{ number_format($totalAmount1) }} VNĐ
-										<span>{{ number_format($item->price_pro) }} VNĐ</span></div>
-									</div>
-								</div>
-								<div class="bestsellers_fav active"><i class="fas fa-heart"></i></div>
-								<ul class="bestsellers_marks">
-									<li class="bestsellers_mark bestsellers_discount">-{{ $item->discount_pro }}%</li>
-									<li class="bestsellers_mark bestsellers_new">new</li>
-								</ul>
-							</div>
-							@endforeach
-
-							
-
-						</div>
-					</div>
-				</div>
-			
-			</div>
-		</div>
-	</div>
-</div>
 
 <!-- Adverts -->
 
@@ -874,7 +684,7 @@
 									</div>
 								</div>
 								<ul class="trends_marks">
-									<li class="trends_mark trends_discount">-25%</li>
+									<li class="trends_mark trends_discount"></li>
 									<li class="trends_mark trends_new">new</li>
 								</ul>
 								
